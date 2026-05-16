@@ -1,8 +1,8 @@
-# Large video files
-*.mp4
-*.mov
-*.avi
-*.mkv
+# Large temporary video files (keep tracked videos)
+*.tmp.mp4
+*.tmp.mov
+*.tmp.avi
+*.tmp.mkv
 
 # Node modules should not be committed (use package-lock.json instead)
 node_modules/

@@ -1126,12 +1126,12 @@ footer{
     <div class="footage-main" id="main-vid-wrap">
       <!--
         MAIN FIELD TRIAL VIDEO
-        YouTube embed: primary lake footage trial - Kengeri Lake
+        Local: autonomous-run.mp4 - Primary field trial footage
       -->
-      <iframe id="footage-main-video" 
-              style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
-              src="https://www.youtube.com/embed/IgK66DhwbF4"
-              allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <video id="footage-main-video" autoplay muted loop playsinline
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
+        <source src="autonomous-run.mp4" type="video/mp4">
+      </video>
       <canvas id="lake-sim-main" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
       <div class="footage-badge"><div class="footage-badge-dot"></div>Trial Footage · Kengeri Lake</div>
     </div>
@@ -1139,26 +1139,26 @@ footer{
       <div class="footage-sub" id="sub1-wrap">
         <!--
           SIDE VIDEO 1
-          YouTube: iw1vTUzc7Pc - CAD model walkthrough
+          Local: cad-render.mp4 - CAD model walkthrough
         -->
-        <iframe id="footage-sub1-video" 
-                style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
-                src="https://www.youtube.com/embed/iw1vTUzc7Pc"
-                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <video id="footage-sub1-video" autoplay muted loop playsinline
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
+          <source src="cad-render.mp4" type="video/mp4">
+        </video>
         <canvas id="lake-sim-s1" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
         <div class="footage-sub-label">CAD Model · Design</div>
       </div>
       <div class="footage-sub" id="sub2-wrap">
         <!--
           SIDE VIDEO 2
-          YouTube Shorts: aIxaBtk0izM - Conveyor test
+          Local: conveyor-test.mp4 - Conveyor mechanism test
         -->
-        <iframe id="footage-sub2-video" 
-                style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
-                src="https://www.youtube.com/embed/aIxaBtk0izM"
-                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <video id="footage-sub2-video" autoplay muted loop playsinline
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
+          <source src="conveyor-test.mp4" type="video/mp4">
+        </video>
         <canvas id="lake-sim-s2" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
-        <div class="footage-sub-label">Conveyor Test · Shorts</div>
+        <div class="footage-sub-label">Conveyor Test · Feb 2026</div>
       </div>
 
     </div>
@@ -1173,14 +1173,14 @@ footer{
     <div class="footage-sub" id="sub3-wrap" style="max-width:100%">
       <!--
         AUTONOMOUS RUN VIDEO
-        YouTube Shorts: 7_cifmJtJUM - Autonomous run test
+        Local: autonomous-run.mp4 - Autonomous run test (duplicate for showcase)
       -->
-      <iframe id="footage-sub3-video" 
-              style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
-              src="https://www.youtube.com/embed/7_cifmJtJUM"
-              allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <video id="footage-sub3-video" autoplay muted loop playsinline
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
+        <source src="autonomous-run.mp4" type="video/mp4">
+      </video>
       <canvas id="lake-sim-s3" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
-      <div class="footage-sub-label">Autonomous Run · Shorts</div>
+      <div class="footage-sub-label">Autonomous Run · Apr 2026</div>
     </div>
   </div>
 </section>
@@ -1760,15 +1760,20 @@ makeLakeSim('lake-sim-s3',true,'15,50,25');
 // ── VIDEO FALLBACK: hide canvas when footage videos load ─────────
 ['footage-main-video','footage-sub1-video','footage-sub2-video','footage-sub3-video'].forEach(id=>{
   const v=document.getElementById(id);if(!v)return;
-  // YouTube iframes load asynchronously, hide canvas with a small delay
-  if(v.tagName==='IFRAME'){
+  // For video elements, hide canvas when video starts playing
+  if(v.tagName==='VIDEO'){
+    const wrap=v.closest('[id*="-wrap"]');
+    const canvas=wrap?.querySelector('canvas');
+    if(canvas)canvas.style.display='none';
+    // Show canvas again if video fails to load
+    v.addEventListener('error',()=>{if(canvas)canvas.style.display='block';});
+  } else if(v.tagName==='IFRAME'){
+    // YouTube iframes - hide canvas with a small delay
     setTimeout(()=>{
       const wrap=v.closest('[id*="-wrap"]');
       const canvas=wrap?.querySelector('canvas');
       if(canvas)canvas.style.display='none';
     },200);
-  } else {
-    v.addEventListener('error',()=>{v.style.display='none';});
   }
 });
 // Similarly hide CAD canvas when cad video loads
