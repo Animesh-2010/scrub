@@ -928,13 +928,12 @@ footer{
   <div class="hero-video-wrap">
     <!--
       HERO BACKGROUND VIDEO
-      Place your video file in the same folder as this HTML and update the src below.
-      Recommended: hero-bg.mp4 (lake/field trial footage, 1920×1080, looping)
+      Instagram Reel: DXucyzhABBs - Hero background footage
     -->
-    <video id="hero-video" autoplay muted loop playsinline>
-      <source src="hero-bg.mp4" type="video/mp4">
-      <source src="videos/hero-bg.webm" type="video/webm">
-    </video>
+    <iframe id="hero-video" 
+            style="position:absolute;inset:0;width:100%;height:100%;border:none"
+            src="https://www.instagram.com/reel/DXucyzhABBs/embed/"
+            allow="encrypted-media" allowfullscreen></iframe>
     <!-- Canvas fallback — shown automatically if video fails to load -->
     <canvas id="hero-canvas" class="hero-video-canvas"></canvas>
   </div>
@@ -1139,30 +1138,48 @@ footer{
       <div class="footage-sub" id="sub1-wrap">
         <!--
           SIDE VIDEO 1
-          Recommended: videos/trial-autonomous.mp4 (autonomous run footage)
+          YouTube: iw1vTUzc7Pc - CAD model walkthrough
         -->
-        <video id="footage-sub1-video" autoplay muted loop playsinline
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
-          <source src="autonomous-run.mp4" type="video/mp4">
-          <source src="videos/trial-autonomous.webm" type="video/webm">
-        </video>
+        <iframe id="footage-sub1-video" 
+                style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
+                src="https://www.youtube.com/embed/iw1vTUzc7Pc?autoplay=1&mute=1&loop=1&playlist=iw1vTUzc7Pc"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
         <canvas id="lake-sim-s1" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
-        <div class="footage-sub-label">Autonomous run · Apr 2026</div>
+        <div class="footage-sub-label">CAD Model · Design</div>
       </div>
       <div class="footage-sub" id="sub2-wrap">
         <!--
           SIDE VIDEO 2
-          Recommended: videos/trial-conveyor.mp4 (conveyor mechanism test)
+          YouTube Shorts: aIxaBtk0izM - Conveyor test
         -->
-        <video id="footage-sub2-video" autoplay muted loop playsinline
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
-          <source src="conveyor-test.mp4" type="video/mp4">
-          <source src="videos/trial-conveyor.webm" type="video/webm">
-        </video>
+        <iframe id="footage-sub2-video" 
+                style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
+                src="https://www.youtube.com/embed/aIxaBtk0izM?autoplay=1&mute=1&loop=1&playlist=aIxaBtk0izM"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
         <canvas id="lake-sim-s2" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
-        <div class="footage-sub-label">Conveyor test · Feb 2026</div>
+        <div class="footage-sub-label">Conveyor Test · Shorts</div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────────────────────────────
+     ADDITIONAL FOOTAGE - Autonomous Run
+─────────────────────────────────────────────────── -->
+<section id="footage-aux" style="background:var(--ink);padding:3rem">
+  <div class="footage-grid" style="max-width:800px;margin:0 auto">
+    <div class="footage-sub" id="sub3-wrap" style="max-width:100%">
+      <!--
+        AUTONOMOUS RUN VIDEO
+        YouTube Shorts: 7_cifmJtJUM - Autonomous run test
+      -->
+      <iframe id="footage-sub3-video" 
+              style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
+              src="https://www.youtube.com/embed/7_cifmJtJUM?autoplay=1&mute=1&loop=1&playlist=7_cifmJtJUM"
+              allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <canvas id="lake-sim-s3" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
+      <div class="footage-sub-label">Autonomous Run · Shorts</div>
     </div>
   </div>
 </section>
@@ -1737,13 +1754,21 @@ function makeLakeSim(id,hasScrub,tintColor){
 makeLakeSim('lake-sim-main',true,'15,50,25');
 makeLakeSim('lake-sim-s1',true,'0,90,120');
 makeLakeSim('lake-sim-s2',false,'15,50,25');
+makeLakeSim('lake-sim-s3',true,'15,50,25');
 
 // ── VIDEO FALLBACK: hide canvas when footage videos load ─────────
-['footage-main-video','footage-sub1-video','footage-sub2-video'].forEach(id=>{
+['footage-main-video','footage-sub1-video','footage-sub2-video','footage-sub3-video'].forEach(id=>{
   const v=document.getElementById(id);if(!v)return;
-  // If the video loads, its z-index already sits above the canvas (z-index:1 vs 0)
-  // If it errors, we simply leave the animated canvas visible beneath
-  v.addEventListener('error',()=>{v.style.display='none';});
+  // YouTube iframes load asynchronously, hide canvas with a small delay
+  if(v.tagName==='IFRAME'){
+    setTimeout(()=>{
+      const wrap=v.closest('[id*="-wrap"]');
+      const canvas=wrap?.querySelector('canvas');
+      if(canvas)canvas.style.display='none';
+    },200);
+  } else {
+    v.addEventListener('error',()=>{v.style.display='none';});
+  }
 });
 // Similarly hide CAD canvas when cad video loads
 const cadVid=document.getElementById('cad-video');
