@@ -1126,39 +1126,39 @@ footer{
     <div class="footage-main" id="main-vid-wrap">
       <!--
         MAIN FIELD TRIAL VIDEO
-        Local: autonomous-run.mp4 - Primary field trial footage
+        YouTube Shorts: 7_cifmJtJUM - Autonomous run
       -->
-      <video id="footage-main-video" autoplay muted loop playsinline
-             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
-        <source src="autonomous-run.mp4" type="video/mp4">
-      </video>
+      <iframe id="footage-main-video" 
+              style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
+              src="https://www.youtube.com/embed/7_cifmJtJUM"
+              allow="autoplay; encrypted-media" allowfullscreen></iframe>
       <canvas id="lake-sim-main" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
-      <div class="footage-badge"><div class="footage-badge-dot"></div>Trial Footage · Kengeri Lake</div>
+      <div class="footage-badge"><div class="footage-badge-dot"></div>Autonomous Run · SCRUB</div>
     </div>
     <div class="footage-side">
       <div class="footage-sub" id="sub1-wrap">
         <!--
           SIDE VIDEO 1
-          Local: cad-render.mp4 - CAD model walkthrough
+          YouTube Shorts: aIxaBtk0izM - Conveyor test
         -->
-        <video id="footage-sub1-video" autoplay muted loop playsinline
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
-          <source src="cad-render.mp4" type="video/mp4">
-        </video>
+        <iframe id="footage-sub1-video" 
+                style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
+                src="https://www.youtube.com/embed/aIxaBtk0izM"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
         <canvas id="lake-sim-s1" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
-        <div class="footage-sub-label">CAD Model · Design</div>
+        <div class="footage-sub-label">Conveyor Test · Shorts</div>
       </div>
       <div class="footage-sub" id="sub2-wrap">
         <!--
           SIDE VIDEO 2
-          Local: conveyor-test.mp4 - Conveyor mechanism test
+          YouTube: IgK66DhwbF4 - Main trial footage Kengeri Lake
         -->
-        <video id="footage-sub2-video" autoplay muted loop playsinline
-               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
-          <source src="conveyor-test.mp4" type="video/mp4">
-        </video>
+        <iframe id="footage-sub2-video" 
+                style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
+                src="https://www.youtube.com/embed/IgK66DhwbF4"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
         <canvas id="lake-sim-s2" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
-        <div class="footage-sub-label">Conveyor Test · Feb 2026</div>
+        <div class="footage-sub-label">Trial Footage · Kengeri Lake</div>
       </div>
 
     </div>
@@ -1166,21 +1166,25 @@ footer{
 </section>
 
 <!-- ───────────────────────────────────────────────────
-     ADDITIONAL FOOTAGE - Autonomous Run
+     TECH SHOWCASE - CAD Model
 ─────────────────────────────────────────────────── -->
-<section id="footage-aux" style="background:var(--ink);padding:3rem">
-  <div class="footage-grid" style="max-width:800px;margin:0 auto">
+<section id="tech-showcase" style="background:var(--ink);padding:3rem">
+  <div style="max-width:900px;margin:0 auto">
+    <div style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(181,101,29,.6);margin-bottom:1rem;font-weight:400">Technical Design</div>
+    <h2 style="font-family:var(--fw-serif);font-size:clamp(2.2rem,4vw,4rem);margin-bottom:2rem;color:var(--paper)">CAD Model<br><em>Walkthrough</em></h2>
+  </div>
+  <div class="footage-grid" style="max-width:900px;margin:0 auto">
     <div class="footage-sub" id="sub3-wrap" style="max-width:100%">
       <!--
-        AUTONOMOUS RUN VIDEO
-        Local: autonomous-run.mp4 - Autonomous run test (duplicate for showcase)
+        CAD MODEL VIDEO
+        YouTube: iw1vTUzc7Pc - CAD model design walkthrough
       -->
-      <video id="footage-sub3-video" autoplay muted loop playsinline
-             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
-        <source src="autonomous-run.mp4" type="video/mp4">
-      </video>
+      <iframe id="footage-sub3-video" 
+              style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
+              src="https://www.youtube.com/embed/iw1vTUzc7Pc"
+              allow="autoplay; encrypted-media" allowfullscreen></iframe>
       <canvas id="lake-sim-s3" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
-      <div class="footage-sub-label">Autonomous Run · Apr 2026</div>
+      <div class="footage-sub-label">CAD Design · Engineering</div>
     </div>
   </div>
 </section>
