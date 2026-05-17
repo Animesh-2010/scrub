@@ -1134,10 +1134,12 @@ footer{
       <canvas id="lake-sim-main" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;display:none"></canvas>
       <div class="footage-badge"><div class="footage-badge-dot"></div>Trial Footage · Kengeri Lake</div>
     </div>
-    <!--
     <div class="footage-side">
       <div class="footage-sub" id="sub1-wrap">
-        
+        <!--
+          SIDE VIDEO 1
+          YouTube Shorts: aIxaBtk0izM - Conveyor test
+        -->
         <iframe
             id="footage-sub1-video"
             src="https://www.youtube.com/embed/aIxaBtk0izM?rel=0&modestbranding=1"
@@ -1149,7 +1151,10 @@ footer{
         <div class="footage-sub-label">Conveyor test · Shorts</div>
       </div>
       <div class="footage-sub" id="sub2-wrap">
-        
+        <!--
+          SIDE VIDEO 2
+          YouTube Shorts: 7_cifmJtJUM - Autonomous run
+        -->
         <iframe id="footage-sub2-video"
           src="https://www.youtube.com/embed/7_cifmJtJUM"
           style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1"
@@ -1162,7 +1167,6 @@ footer{
 
     </div>
   </div>
-  -->
 </section>
 
 <hr class="rule" style="border-color:rgba(245,240,235,.06);background:var(--ink)">
@@ -1736,76 +1740,7 @@ makeLakeSim('lake-sim-s2',false,'15,50,25');
 
 // ── YOUTUBE VIDEO EMBED CONFIGURATION ──────────────────────────
 // Replace YouTube video IDs below with your own
-// Note: Hero video is a YouTube Short and won't display as a background
-const youtubeVideos={
-  'footage-main-video':'IgK66DhwbF4', // Kengeri Lake trial
-  'footage-sub1-video':'dQw4w9WgXcQ', // Autonomous run
-  'footage-sub2-video':'dQw4w9WgXcQ', // Conveyor test
-  'cad-video':'dQw4w9WgXcQ' // CAD render
-};
 
-// Function to create YouTube iframe with autoplay & loop
-function createYouTubeEmbed(videoId,containerId){
-  const container=document.getElementById(containerId);
-  if(!container)return;
-  
-  // Remove existing video element
-  const existingVideo=container.querySelector('video');
-  if(existingVideo)existingVideo.remove();
-  
-  // Create iframe wrapper
-  const iframeWrapper=document.createElement('div');
-  iframeWrapper.style.cssText='position:absolute;inset:0;width:100%;height:100%;z-index:1';
-  
-  // YouTube iframe with parameters for autoplay, loop, no controls
-  const iframe=document.createElement('iframe');
-  iframe.src=`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0`;
-  iframe.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:none';
-  iframe.allow='autoplay';
-  iframe.title='Video';
-  
-  iframeWrapper.appendChild(iframe);
-  container.appendChild(iframeWrapper);
-  
-  // Hide canvas if present
-  const canvas=container.querySelector('canvas');
-  if(canvas)canvas.style.display='none';
-  return iframeWrapper;
-}
-
-// Load YouTube videos on page load
-window.addEventListener('load',()=>{
-  // Hero video - SKIPPED (canvas animation stays visible)
-  // YouTube Shorts (vertical format) don't work as full-width horizontal backgrounds
-  const heroVid=document.getElementById('hero-video');
-  if(heroVid){
-    heroVid.style.display='none';
-    // Canvas animation remains visible
-  }
-  
-  // Footage videos
-  ['footage-main-video','footage-sub1-video','footage-sub2-video'].forEach(id=>{
-    const wrapId=id.replace('-video','')+'';
-    let containerId=id;
-    
-    if(id==='footage-main-video')containerId='main-vid-wrap';
-    else if(id==='footage-sub1-video')containerId='sub1-wrap';
-    else if(id==='footage-sub2-video')containerId='sub2-wrap';
-    
-    if(youtubeVideos[id]){
-      const v=document.getElementById(id);
-      if(v)v.style.display='none';
-      createYouTubeEmbed(youtubeVideos[id],containerId);
-    }
-  });
-  
-  // CAD video
-  if(youtubeVideos['cad-video']){
-    const cadVid=document.getElementById('cad-video');
-    if(cadVid)cadVid.style.display='none';
-    createYouTubeEmbed(youtubeVideos['cad-video'],'cad-img-wrap');
-  }
-});
 
 // ── SCROLL REVEAL ────────────────────────────────────────────────
 const observer=new IntersectionObserver(entries=>{
