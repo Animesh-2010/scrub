@@ -744,6 +744,237 @@ footer{
   #timeline{padding:5rem 1.5rem}
   .tl-grid{grid-template-columns:1fr}
 }
+
+@media(max-width:640px){
+  :root{
+    --fs-disp:clamp(2.9rem,16vw,4.6rem);
+    --fs-h2:clamp(2rem,11vw,3rem);
+    --fs-h3:1.25rem;
+  }
+  html{font-size:15px}
+  body{cursor:auto}
+  #cur,#cur-trail{display:none}
+  nav{
+    height:58px;
+    padding:0 1rem;
+    gap:.75rem;
+  }
+  .nav-logo{font-size:1.05rem}
+  .nav-right{gap:.6rem}
+  .nav-cta{display:none}
+  .nav-pitch-btn{
+    min-height:40px;
+    padding:.5rem .75rem;
+    font-size:.62rem;
+    cursor:pointer;
+  }
+  .nav-pitch-btn svg{width:14px!important;height:14px!important}
+  #hero{
+    min-height:620px;
+    height:calc(100svh - 58px - 36px)!important;
+    padding-bottom:3.5rem;
+  }
+  .hero-video{opacity:.5}
+  .hero-content{padding:0 1rem}
+  .hero-eyebrow{
+    font-size:.62rem;
+    line-height:1.6;
+    margin-bottom:1rem;
+  }
+  .hero-h1{
+    max-width:10ch;
+    line-height:.98;
+  }
+  .hero-meta{
+    margin-top:2rem;
+    gap:1.5rem;
+  }
+  .hero-desc{
+    font-size:.95rem;
+    line-height:1.65;
+    max-width:32ch;
+  }
+  .hero-actions{
+    width:100%;
+    flex-direction:column;
+    gap:.75rem;
+  }
+  .btn-solid,.btn-outline{
+    width:100%;
+    min-height:46px;
+    justify-content:center;
+    padding:.85rem 1rem;
+    cursor:pointer;
+  }
+  .hero-scroll{display:none}
+  #sound-toggle{
+    right:1rem;
+    bottom:1rem;
+    width:40px;
+    height:40px;
+    cursor:pointer;
+  }
+  .ticker-item{
+    padding:0 1.25rem;
+    font-size:.6rem;
+  }
+  .sec{padding:4.5rem 1rem}
+  .sec-label{font-size:.62rem}
+  .sec-title{line-height:1.04}
+  #stats{padding:2rem 1rem}
+  .stats-inner{
+    grid-template-columns:1fr 1fr;
+    border-left:none;
+  }
+  .stat{
+    padding:1.4rem 1rem;
+    border-right:none;
+    border-bottom:1px solid rgba(245,240,235,.08);
+  }
+  .stat-num{font-size:2.45rem}
+  .problem-layout,.cad-block,.traction-layout{
+    gap:3rem;
+    margin-top:3rem;
+  }
+  .cad-specs{gap:.1rem}
+  .cspec{
+    gap:1.5rem;
+    align-items:flex-start;
+  }
+  .cspec-val{text-align:right}
+  .feature-grid{
+    gap:1.25rem;
+    padding-top:2.5rem;
+  }
+  .footage-head{
+    align-items:flex-start;
+    padding:3.5rem 1rem 1.5rem;
+  }
+  .footage-note{text-align:left}
+  .footage-grid{display:block}
+  .footage-main{aspect-ratio:4/3}
+  .footage-side{display:none}
+  #wq-dashboard{padding:3.5rem 1rem}
+  .wq-head{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:.75rem;
+  }
+  .wq-grid{grid-template-columns:1fr}
+  .wq-card{padding:1.4rem 1rem}
+  #timeline{padding:4.5rem 1rem}
+  .tl-grid{gap:3rem!important;margin-top:3rem!important}
+  .tl-track{padding-left:1.5rem}
+  .tl-desc{max-width:none}
+  .tl-badge{width:max-content;max-width:100%}
+  .traction-item{
+    grid-template-columns:1.5rem 1fr;
+    gap:1rem;
+  }
+  .quote-block,.ip-box{padding:1.5rem}
+  .pyramid-tier{
+    gap:1rem;
+    justify-content:center;
+  }
+  .tier-faculty .tcard,
+  .tier-leads .tcard,
+  .tier-members .tcard{
+    width:min(100%,160px);
+  }
+  .tcard-name{font-size:.9rem}
+  .tcard-role,.tcard-detail{font-size:.66rem}
+  #cta{padding:5rem 1rem}
+  .cta-actions{flex-direction:column}
+  .cta-badges{
+    gap:1rem;
+    margin-top:3rem;
+    padding-top:2.5rem;
+  }
+  footer{
+    align-items:flex-start;
+    flex-direction:column;
+    padding:2rem 1rem;
+    gap:1.25rem;
+  }
+  .footer-copy{
+    max-width:100%;
+    word-break:break-word;
+  }
+  .footer-links{
+    flex-wrap:wrap;
+    gap:1rem 1.25rem;
+  }
+  footer > div:last-child{
+    align-items:flex-start!important;
+  }
+  #pitch-modal{
+    align-items:stretch;
+    padding:.75rem;
+  }
+  .pitch-wrap{
+    width:100%;
+    max-height:calc(100svh - 1.5rem);
+  }
+  .pitch-close{
+    top:.85rem;
+    right:.85rem;
+    width:40px;
+    height:40px;
+    background:rgba(245,240,235,.86);
+    cursor:pointer;
+  }
+  .pitch-slides{
+    overflow-x:hidden;
+    overflow-y:auto;
+  }
+  .pitch-slide{
+    min-height:auto;
+    padding:4.25rem 1.25rem 2rem;
+    justify-content:flex-start;
+  }
+  .slide-h1{
+    font-size:clamp(2rem,12vw,2.75rem);
+    line-height:1.03;
+  }
+  .slide-body{font-size:.9rem}
+  .slide-list li{font-size:.84rem}
+  .slide-stats,.slide-two-col{
+    grid-template-columns:1fr;
+    gap:1.25rem;
+  }
+  .slide-stat-num{font-size:2rem}
+  .slide-big-num{
+    right:1rem;
+    top:4rem;
+    transform:none;
+    font-size:5rem;
+  }
+  .pitch-nav{
+    padding:.85rem 1rem;
+    gap:.75rem;
+  }
+  .pitch-nav-btn{
+    min-height:40px;
+    padding:.5rem .85rem;
+    cursor:pointer;
+  }
+  .kbd-hint{display:none}
+}
+
+@media(max-width:420px){
+  .stats-inner{grid-template-columns:1fr}
+  .tier-faculty .tcard,
+  .tier-leads .tcard,
+  .tier-members .tcard{
+    width:calc(50% - .5rem);
+    min-width:138px;
+  }
+  .pyramid-label{
+    width:100%;
+    text-align:center;
+  }
+  .slide-highlight{padding:1rem}
+}
 </style>
 </head>
 <body>
