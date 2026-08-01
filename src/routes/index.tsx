@@ -2,11 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Reveal, useInView } from "@/components/reveal";
 import { WaterField } from "@/components/water-field";
-import { LiveDose } from "@/components/live-dose";
 import { DepthDive } from "@/components/depth-dive";
 import { StickerWall } from "@/components/sticker-wall";
 import { ImpactCalc } from "@/components/impact-calc";
-import { LakeCompare } from "@/components/lake-compare";
 import { MemeBreak, VibeCheck, ScrollRank } from "@/components/funky";
 import { ModeProvider, ModeSwitch, useMode } from "@/components/mode";
 
@@ -14,15 +12,9 @@ const BrainrotSite = lazy(() =>
   import("@/components/brainrot-site").then(({ BrainrotSite }) => ({ default: BrainrotSite })),
 );
 
-import lakeSketch from "@/assets/media/lake_sketch.jpg.asset.json";
-
 import v1Img from "@/assets/media/v1.jpg.asset.json";
 import v2Img from "@/assets/media/v2.jpg.asset.json";
-import cadVid from "@/assets/media/cad.mp4.asset.json";
 import heroVid from "@/assets/media/hero.mp4.asset.json";
-import trial1 from "@/assets/media/trial1.mp4.asset.json";
-import trial2 from "@/assets/media/trial2.mp4.asset.json";
-import trial3 from "@/assets/media/trial3.mp4.asset.json";
 import robotZine from "@/assets/media/robot_zine.jpg.asset.json";
 
 import shanta from "@/assets/team/shanta.jpg.asset.json";
@@ -35,7 +27,6 @@ import dishita from "@/assets/team/dishita.jpg.asset.json";
 import farhan from "@/assets/team/farhan.jpg.asset.json";
 import varsha from "@/assets/team/varsha.jpg.asset.json";
 import lakshay from "@/assets/team/lakshay.jpg.asset.json";
-import ashutosh from "@/assets/team/ashutosh.jpg.asset.json";
 import skanda from "@/assets/team/skanda.jpg.asset.json";
 import siddiq from "@/assets/team/siddiq.jpg.asset.json";
 
@@ -100,10 +91,8 @@ export const Route = createFileRoute("/")({
 /* ---------------------------------------------------------------- data */
 
 const NAV = [
+  ["Problem", "#problem"],
   ["Products", "#products"],
-  ["Technology", "#technology"],
-  ["Field", "#field"],
-  ["Traction", "#traction"],
   ["Team", "#team"],
 ];
 
@@ -401,15 +390,13 @@ const LEADS = [
 const CREW = [
   { name: "Dishita", role: "Software · AI/ML", img: dishita.url },
   { name: "Farhan", role: "Software · Sensor Integration", img: farhan.url },
-  { name: "Suraj", role: "Software · Algorithms", img: "" },
-  { name: "Adya", role: "Software · AI/ML", img: "" },
+  { name: "Suraj", role: "Software · Algorithms", img: "/assets/images/team/Suraj.jpeg" },
   { name: "Varsha", role: "Hardware · Embedded Systems", img: varsha.url },
   { name: "Lakshay", role: "Hardware · IoT", img: lakshay.url },
-  { name: "Ashutosh Sinha", role: "Hardware · Sensor Stack", img: ashutosh.url },
-  { name: "Hariharan", role: "Mechanical Design", img: "" },
+  { name: "Hariharan", role: "Mechanical Design", img: "/assets/images/team/Hariharan.jpeg" },
+  { name: "Shivansh", role: "Team Member", img: "/assets/images/team/Shivansh.jpeg" },
   { name: "Skanda", role: "Mechanical Design", img: skanda.url },
   { name: "Siddiq", role: "Mechanical Design", img: siddiq.url },
-  { name: "Prasanna", role: "Mechanical Design", img: "" },
 ];
 
 const MODELS = [
@@ -1871,25 +1858,16 @@ function ModeSwitcherRoot() {
       <Nav />
       <Hero />
       <Ticker />
-      <LiveDose />
       <StatBand />
+      <Problem />
       <Products />
       <MemeBreak />
-      <Compare />
-      <Problem />
       <DepthDive />
-      <Market />
-      <Technology />
       <StickerWall />
-      <Competition />
-      <Field />
       <VibeCheck />
-      <Telemetry />
       <ImpactCalc />
       <Timeline />
-      <Traction />
       <Team />
-      <Models />
       <Contact />
 
       <Footer />
