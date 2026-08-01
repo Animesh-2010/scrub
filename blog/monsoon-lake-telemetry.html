@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="What actually happens to a lake in a Bengaluru monsoon — first flush, debris pulses, oxygen crashes, and why SCRUB is building sensors to catch it.">
+  <title>What actually happens to a lake in a Bengaluru monsoon — SCRUB Field Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root{--paper:#f5f0eb;--ink:#0e0e0c;--surface:#ebe5dc;--muted:#73736c;--rule:#d5cfc6;--clay:#b5651d;--forest:#3d5b49;--serif:'DM Serif Display',serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans)} a{color:inherit;text-decoration:none}
+    .nav{position:fixed;inset:0 0 auto;z-index:5;height:64px;background:rgba(245,240,235,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--rule)}
+    .nav-in{height:64px;padding:0 3rem;display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1400px;margin:auto}
+    .brand{font-family:var(--serif);font-size:1.25rem;letter-spacing:.04em;color:var(--ink)}.brand b{font-weight:400}
+    .nav-links{display:flex;gap:2.5rem;list-style:none}
+    .nav-links a{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+    .nav-links a:hover,.nav-links .active{color:var(--ink)}
+    .subscribe{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--clay);font-weight:500;border:0;border-bottom:1px solid var(--clay);padding:0 0 1px}
+    @media(max-width:900px){.nav-in{padding:0 1.5rem}.nav-links{display:none}}
+
+    .wrap{max-width:760px;margin:auto;padding-left:32px;padding-right:32px}
+    @media(max-width:800px){.wrap{padding-left:20px;padding-right:20px}}
+
+    .article-head{padding-top:130px;padding-bottom:40px;border-bottom:1px solid var(--rule)}
+    .back-link{font:11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:8px;margin-bottom:28px;transition:color .2s}
+    .back-link:hover{color:var(--clay)}
+    .eyebrow{font:10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--forest)}
+    .article-head h1{font-size:clamp(2.6rem,6vw,4.4rem);letter-spacing:-.05em;line-height:.98;margin:16px 0 22px;font-weight:500;max-width:14ch}
+    .article-head h1 em{font-family:var(--serif);color:var(--clay);font-weight:400;font-style:normal}
+    .dek{font-size:16px;line-height:1.6;color:#494943;max-width:56ch}
+    .post-meta{display:flex;gap:12px;align-items:center;margin-top:28px;font:10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+    .line{width:22px;height:1px;background:currentColor}
+
+    .status-note{margin:36px 0 0;padding:16px 18px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;font-size:12.5px;line-height:1.6;color:var(--muted)}
+    .status-note b{color:var(--ink);font-weight:600}
+
+    .article-hero{margin:40px 0 0;border-radius:18px;overflow:hidden;background:var(--surface);border:1px solid var(--rule)}
+    .article-hero img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+    .article-hero figcaption{padding:11px 15px;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+    article{padding-top:48px;padding-bottom:40px;font-size:16.5px;line-height:1.75;color:#26261f}
+    article h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.3rem);letter-spacing:-.02em;color:var(--ink);margin:56px 0 6px;line-height:1.1}
+    article h2 .num{display:block;font:10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--clay);margin-bottom:10px;font-weight:500}
+    article p{margin:18px 0}
+    article p:first-of-type::first-letter{font-family:var(--serif);font-size:3.6rem;line-height:.7;float:left;padding:8px 8px 0 0;color:var(--clay)}
+    .callout{margin:24px 0;padding:20px 22px;background:var(--surface);border-left:3px solid var(--forest);border-radius:0 14px 14px 0;font-size:14.5px;line-height:1.65;color:#3a3a34}
+    .callout b{color:var(--forest)}
+    .data-slot{margin:24px 0;padding:18px 20px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;color:#3a3a34}
+    .data-slot h3{margin:0 0 9px;font:600 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
+    .data-slot p{margin:0;font-size:13px;line-height:1.65}
+    .data-slot dl{display:grid;grid-template-columns:135px 1fr;gap:7px 16px;margin:14px 0 0;padding-top:13px;border-top:1px solid var(--rule);font-size:12px;line-height:1.45}
+    .data-slot dt{font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .data-slot dd{margin:0}
+    hr{border:none;border-top:1px solid var(--rule);margin:56px 0 40px}
+    .sign{font-size:12.5px;line-height:1.6;color:var(--muted);font-style:italic}
+
+    .footer{border-top:1px solid var(--rule);padding:25px 32px;color:var(--muted);font-size:12px;margin-top:40px}
+    .footer div{max-width:1400px;margin:auto;display:flex;justify-content:space-between}
+    @media(max-width:800px){.footer{padding:20px}.footer div{gap:12px;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header class="nav"><div class="nav-in">
+    <a class="brand" href="../index.html"><span><b>SCRUB</b></span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="../index.html#problem">Problem</a><a href="../index.html#solution">Solution</a>
+      <a href="../index.html#footage">Field Trials</a><a href="../index.html#traction">Traction</a>
+      <a href="../index.html#team">Team</a><a class="active" href="../blog.html">Blog</a>
+    </nav>
+    <a class="subscribe" href="mailto:kpurwar1234@gmail.com?subject=Subscribe%20to%20SCRUB%20Field%20Notes">Subscribe →</a>
+  </div></header>
+
+  <main class="wrap">
+    <div class="article-head">
+      <a class="back-link" href="../blog.html">← Back to Field Notes</a>
+      <span class="eyebrow">Issue 08 · Data</span>
+      <h1>What actually happens to a lake in a <em>Bengaluru monsoon</em></h1>
+      <p class="dek">Every June the same headline runs: lake overflows, city scrambles. We keep acting surprised. Here's the actual physics of a monsoon lake — and what we're building V1, V2 and V4 to catch this season.</p>
+      <div class="post-meta"><span>01 Aug 2026</span><span class="line"></span><span>7 min read</span></div>
+      <div class="status-note"><b>A note on the data:</b> we haven't run SCRUB through a full monsoon cycle yet. This piece lays out the limnology and exactly what our sensors are built to measure — the readings themselves are still coming. We'll publish them as a follow-up once we have a season's worth.</div>
+      <figure class="article-hero">
+        <img src="../assets/blog/monsoon-lake-telemetry-hero.png" alt="A cleanup robot collecting floating debris on a rain-swept urban lake during monsoon">
+        <figcaption>Monsoon field conditions — illustrative visual</figcaption>
+      </figure>
+    </div>
+
+    <article>
+      <p>A lake in monsoon isn't "the same lake, but fuller." For about six weeks a year, it runs on completely different physics — different inflow, different chemistry, different failure modes. Manual cleaning schedules are built for the dry-season lake. The monsoon lake doesn't care.</p>
+
+      <h2><span class="num">01</span>The first flush is the worst hour of the year</h2>
+      <p>Before the rain even properly sets in, there's a phase limnologists call the <b>first flush</b> — the first heavy inflow after a long dry spell, which drags months of accumulated street dust, oil residue, and grime off the catchment and straight into the lake in one go. It's rarely the biggest volume of water a lake sees all season. It's reliably the dirtiest.</p>
+      <aside class="data-slot" aria-label="First-flush monitoring plan">
+        <h3>What we’re logging</h3>
+        <p>V4 will establish a dry-weather baseline, then sample tightly through the season’s first major rain. We’re looking for a fast rise in turbidity and conductivity that arrives before the lake level has had time to respond—the practical signature of polluted runoff arriving faster than the water itself.</p>
+        <dl><dt>Baseline</dt><dd>One dry-weather reading every 15 minutes for the seven days before a major event.</dd><dt>Event window</dt><dd>One reading every 60 seconds from the first sustained rainfall through two hours after inflow peaks.</dd><dt>Channels</dt><dd>Turbidity, pH, conductivity, water temperature and lake level, aligned with local rainfall timing.</dd><dt>Publishable view</dt><dd>A before-and-after chart showing each sensor trace against rainfall and inflow timing.</dd></dl>
+      </aside>
+
+      <h2><span class="num">02</span>Debris doesn't arrive gradually — it steps</h2>
+      <p>Manual desilting contracts — the kind we <a href="#" style="color:var(--clay);border-bottom:1px solid var(--clay)">read through in Issue 02</a> — are budgeted on a calendar: monthly, sometimes quarterly. But debris in a monsoon lake doesn't move on a calendar. It arrives in pulses, one per significant rain event, dumping a fresh slug of plastic and leaf litter through the stormwater drains inside a single afternoon.</p>
+      <div class="callout"><b>Why it matters:</b> a monthly cleaning schedule against a system that dumps most of its annual debris load in six or seven discrete pulses is like mopping a floor once a month, while the tap runs for ten minutes a day at random times you don't control.</div>
+      <aside class="data-slot" aria-label="Debris-pulse monitoring plan">
+        <h3>What counts as a debris pulse</h3>
+        <p>V1 and V2 will log every intake cycle alongside the robot’s position and weather conditions. The useful number is not a seasonal total; it’s collection rate by hour, so a sudden post-rain surge is visible instead of being averaged away.</p>
+        <dl><dt>Per cycle</dt><dd>Timestamp, intake duration, conveyor current, bin-fill estimate and a debris image frame.</dd><dt>Per event</dt><dd>Wet mass collected per hour, rain start time, rain intensity and distance travelled near each inlet.</dd><dt>Comparison</dt><dd>At least three rain events, plus a dry-day operating run using the same route.</dd><dt>Publishable view</dt><dd>An hourly collection-rate chart with rain events marked, backed by intake footage.</dd></dl>
+      </aside>
+
+      <h2><span class="num">03</span>Oxygen crashes right when the lake looks healthiest</h2>
+      <p>Common intuition says more water means a healthier lake. Monsoon inflow often does the opposite in the short term. Fresh runoff carries organic load — leaves, sewage overflow, catchment residue — and the bacteria breaking that load down consume oxygen faster than it dissolves back in, especially in warm, low-flow inland lakes. The result: a dissolved-oxygen dip in the days right after a big rain event, exactly when the lake looks fullest to the naked eye.</p>
+      <aside class="data-slot" aria-label="Dissolved oxygen monitoring plan">
+        <h3>How we’ll catch an oxygen sag</h3>
+        <p>We’ll track dissolved oxygen before the storm, through the runoff event, and for the following week. A single grab sample can miss the low point, so the goal is a time series that shows whether oxygen falls after organic runoff reaches the lake—and how long recovery takes.</p>
+        <dl><dt>Sampling window</dt><dd>At least 24 hours before rainfall through seven days after a heavy event.</dd><dt>Cadence</dt><dd>Every 15 minutes, with the first 24 hours reviewed at higher attention.</dd><dt>Context</dt><dd>Dissolved oxygen paired with temperature, pH, conductivity, turbidity and time of day.</dd><dt>Publishable view</dt><dd>A seven-day oxygen trace with rainfall and water-temperature overlays, plus the minimum and recovery time.</dd></dl>
+      </aside>
+
+      <h2><span class="num">04</span>Sediment doesn't leave. It just moves</h2>
+      <p>A lot of what enters a lake during monsoon never leaves — it settles. Every big inflow event redistributes the lakebed a little, building up near inlets and slowly shrinking a lake's actual water-holding capacity year over year. Encroachment gets most of the blame for shrinking city lakes. Some of it is just decades of unmeasured sediment nobody was watching.</p>
+
+      <h2><span class="num">05</span>Why this needs a robot, not a report</h2>
+      <p>None of this is exotic science — first flush, oxygen sag, and pulse-loading have been documented for decades. What's missing in most urban lakes isn't the theory. It's continuous, site-specific measurement. Nobody's logging this lake, in this catchment, through this monsoon, at intervals tight enough to catch a pulse event as it happens.</p>
+      <p>That's the actual argument for V4 sitting in the water full-time instead of a quarterly water-quality report from a lab van: a monsoon doesn't wait for a sampling schedule, and neither does the damage.</p>
+
+      <hr>
+      <p class="sign">We're instrumenting our next deployment specifically to catch first flush and the pulse pattern described above. Follow-up post, with real numbers, once the rain gives us something to log.</p>
+    </article>
+  </main>
+
+  <footer class="footer"><div><span>© 2026 SCRUB Robotics</span><a href="../blog.html">← Back to Field Notes</a></div></footer>
+  <script>
+    document.querySelectorAll('a[href^="../index.html"]').forEach(link => {
+      link.addEventListener('click', () => {
+        try { sessionStorage.setItem('scrub-skip-loader', '1'); } catch (e) {}
+      });
+    });
+  </script>
+</body>
+</html>
