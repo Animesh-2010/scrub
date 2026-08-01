@@ -1687,7 +1687,7 @@ function Contact() {
               {[
                 ["Email", "team.scrub0415@gmail.com", "mailto:team.scrub0415@gmail.com"],
                 ["Phone", "+91 95698 86982", "tel:+919569886982"],
-                ["Follow", "Instagram", "https://instagram.com"],
+                ["Follow", "@team_.scrub", "https://instagram.com/team_.scrub"],
               ].map(([l, v, href]) => (
                 <div key={l}>
                   <div className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-paper/40">
@@ -1757,6 +1757,9 @@ function Footer() {
           <Link to="/blog" className="hover:text-paper">
             Blog
           </Link>
+          <a href="https://instagram.com/team_.scrub" className="hover:text-paper">
+            @team_.scrub
+          </a>
         </div>
       </div>
     </footer>
