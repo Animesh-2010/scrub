@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as LinksRouteImport } from './routes/links'
+import { Route as LinksDothtmlRouteImport } from './routes/links[.]html'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const LinksRoute = LinksRouteImport.update({
   path: '/links',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LinksDothtmlRoute = LinksDothtmlRouteImport.update({
+  id: '/links.html',
+  path: '/links.html',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
   '/connect': typeof ConnectRoute
   '/links': typeof LinksRoute
+  '/links.html': typeof LinksDothtmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRoute
   '/connect': typeof ConnectRoute
   '/links': typeof LinksRoute
+  '/links.html': typeof LinksDothtmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/connect': typeof ConnectRoute
   '/links': typeof LinksRoute
+  '/links.html': typeof LinksDothtmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog' | '/connect' | '/links'
+  fullPaths: '/' | '/blog' | '/connect' | '/links' | '/links.html'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog' | '/connect' | '/links'
-  id: '__root__' | '/' | '/blog' | '/connect' | '/links'
+  to: '/' | '/blog' | '/connect' | '/links' | '/links.html'
+  id: '__root__' | '/' | '/blog' | '/connect' | '/links' | '/links.html'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +76,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   ConnectRoute: typeof ConnectRoute
   LinksRoute: typeof LinksRoute
+  LinksDothtmlRoute: typeof LinksDothtmlRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LinksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/links.html': {
+      id: '/links.html'
+      path: '/links.html'
+      fullPath: '/links.html'
+      preLoaderRoute: typeof LinksDothtmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   ConnectRoute: ConnectRoute,
   LinksRoute: LinksRoute,
+  LinksDothtmlRoute: LinksDothtmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

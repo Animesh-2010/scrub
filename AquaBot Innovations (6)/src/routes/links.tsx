@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ConnectPage, connectMeta } from "@/components/connect-page";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/links")({
-  head: () => ({ meta: connectMeta }),
-  component: ConnectPage,
+  beforeLoad: () => {
+    throw redirect({ to: "/links.html" });
+  },
 });
