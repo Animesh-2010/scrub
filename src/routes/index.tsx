@@ -546,8 +546,8 @@ function Nav() {
             >
               Blog
             </Link>
-            <Link
-              to="/links"
+            <a
+              href="/links.html"
               className={`rounded-full px-3.5 py-1.5 text-[12.5px] transition-colors ${
                 solid
                   ? "text-ink-60 hover:bg-paper hover:text-ink"
@@ -555,7 +555,7 @@ function Nav() {
               }`}
             >
               Links
-            </Link>
+            </a>
           </nav>
 
           <div className="flex items-center gap-2">
@@ -594,9 +594,9 @@ function Nav() {
           <Link to="/blog" className="block border-b border-ink-10 py-3 text-sm">
             Blog
           </Link>
-          <Link to="/links" className="block py-3 text-sm">
+          <a href="/links.html" className="block py-3 text-sm">
             Links
-          </Link>
+          </a>
         </div>
       )}
     </header>
@@ -1770,9 +1770,9 @@ function Footer() {
           <Link to="/blog" className="hover:text-paper">
             Blog
           </Link>
-          <Link to="/links" className="hover:text-paper">
+          <a href="/links.html" className="hover:text-paper">
             Links
-          </Link>
+          </a>
           <a href="https://instagram.com/team_.scrub" className="hover:text-paper">
             @team_.scrub
           </a>
