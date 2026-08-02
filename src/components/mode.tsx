@@ -1,4 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 
 type Mode = "pro" | "brainrot";
 
@@ -37,11 +45,7 @@ export function ModeSwitch({ floating = true }: { floating?: boolean }) {
 
   return (
     <div
-      className={
-        floating
-          ? "fixed bottom-4 right-4 z-[80] md:bottom-6 md:right-6"
-          : "inline-block"
-      }
+      className={floating ? "fixed bottom-4 right-4 z-[80] md:bottom-6 md:right-6" : "inline-block"}
     >
       <button
         onClick={toggle}

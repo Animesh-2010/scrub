@@ -6,28 +6,44 @@ const LAYERS = [
     title: "Surface",
     body: "Floating plastic, thermocol, water hyacinth. The conveyor mouth swallows a 1.2 m wide lane at 0.6 m/s.",
     tint: "rgba(34,192,138,0.18)",
-    read: [["Lane width", "1.2 m"], ["Sweep speed", "0.6 m/s"], ["Intake", "passive"]],
+    read: [
+      ["Lane width", "1.2 m"],
+      ["Sweep speed", "0.6 m/s"],
+      ["Intake", "passive"],
+    ],
   },
   {
     depth: "0.3 m",
     title: "Skim line",
     body: "Vision model segments debris from reflection and glare at 90% precision — 24 fps on an edge board.",
     tint: "rgba(46,155,216,0.2)",
-    read: [["Precision", "90.4%"], ["Inference", "24 fps"], ["Classes", "11"]],
+    read: [
+      ["Precision", "90.4%"],
+      ["Inference", "24 fps"],
+      ["Classes", "11"],
+    ],
   },
   {
     depth: "1.0 m",
     title: "Sensor column",
     body: "pH, dissolved oxygen, turbidity, TDS and temperature sampled every 5 seconds, geotagged to the metre.",
     tint: "rgba(29,127,140,0.24)",
-    read: [["pH", "7.4"], ["DO", "5.8 mg/L"], ["Turbidity", "38 NTU"]],
+    read: [
+      ["pH", "7.4"],
+      ["DO", "5.8 mg/L"],
+      ["Turbidity", "38 NTU"],
+    ],
   },
   {
     depth: "2.5 m",
     title: "Benthic story",
     body: "Trend models flag the eutrophication curve weeks before the lake visibly turns. The proof ships to the ULB dashboard.",
     tint: "rgba(8,34,32,0.4)",
-    read: [["Chlorophyll-a", "rising"], ["Forecast", "14 days"], ["Alert", "sent to ULB"]],
+    read: [
+      ["Chlorophyll-a", "rising"],
+      ["Forecast", "14 days"],
+      ["Alert", "sent to ULB"],
+    ],
   },
 ];
 

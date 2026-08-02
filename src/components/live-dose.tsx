@@ -33,9 +33,7 @@ export function LiveDose() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h2 className="max-w-2xl text-4xl font-medium leading-[0.95] tracking-[-0.04em] md:text-6xl">
             You've been on this page for{" "}
-            <span className="font-serif italic text-gradient tabular-nums">
-              {secs.toFixed(1)}s
-            </span>
+            <span className="font-serif italic text-gradient tabular-nums">{secs.toFixed(1)}s</span>
             .
           </h2>
           <span className="rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.24em] text-paper/60">

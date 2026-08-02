@@ -546,6 +546,16 @@ function Nav() {
             >
               Blog
             </Link>
+            <Link
+              to="/links"
+              className={`rounded-full px-3.5 py-1.5 text-[12.5px] transition-colors ${
+                solid
+                  ? "text-ink-60 hover:bg-paper hover:text-ink"
+                  : "text-paper/75 hover:bg-white/15 hover:text-paper"
+              }`}
+            >
+              Links
+            </Link>
           </nav>
 
           <div className="flex items-center gap-2">
@@ -581,8 +591,11 @@ function Nav() {
               {label}
             </a>
           ))}
-          <Link to="/blog" className="block py-3 text-sm">
+          <Link to="/blog" className="block border-b border-ink-10 py-3 text-sm">
             Blog
+          </Link>
+          <Link to="/links" className="block py-3 text-sm">
+            Links
           </Link>
         </div>
       )}
@@ -1756,6 +1769,9 @@ function Footer() {
           ))}
           <Link to="/blog" className="hover:text-paper">
             Blog
+          </Link>
+          <Link to="/links" className="hover:text-paper">
+            Links
           </Link>
           <a href="https://instagram.com/team_.scrub" className="hover:text-paper">
             @team_.scrub

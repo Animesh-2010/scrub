@@ -185,6 +185,9 @@ export function BrainrotSite() {
             <Link to="/blog" className="rounded-full px-3 py-1.5 transition-colors hover:bg-live">
               the zine
             </Link>
+            <Link to="/links" className="rounded-full px-3 py-1.5 transition-colors hover:bg-live">
+              links
+            </Link>
           </nav>
           <div className="flex items-center gap-2">
             <a
