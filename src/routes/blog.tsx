@@ -183,6 +183,7 @@ const rest: Post[] = [
   },
 ];
 
+
 const tickerWords = [
   "BUILD LOGS",
   "NO PR SPEAK",
@@ -217,8 +218,10 @@ function ZineNav() {
     <header className="sticky top-0 z-50 bg-canvas/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-4 md:px-8">
         <Link to="/" className="flex items-center gap-3">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-ink text-[16px] font-bold italic text-live">
-            S
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-ink text-paper">
+            <svg viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor">
+              <path d="M3 12c3-4 6-4 9 0s6 4 5-2c-1 6-4 6-9 2s-8-4-5 0z" />
+            </svg>
           </span>
           <div className="flex flex-col leading-none">
             <span className="text-lg font-medium tracking-tight">Scrub</span>
@@ -313,6 +316,7 @@ function Masthead() {
             We're building an autonomous robot for lakes nobody funds. This is the unedited paper
             trail — the breakages, the data, the 90%-accurate hallucinations.
           </p>
+
         </div>
         <div className="mt-8 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-ink-40">
           <span className="h-px w-10 bg-ink-30" />
@@ -328,41 +332,41 @@ function FeaturedRow({ onOpen }: { onOpen: (p: Post) => void }) {
     <section className="px-5 pb-16 md:px-8">
       <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-[1.35fr_1fr]">
         <button
-          type="button"
-          onClick={() => onOpen(featured)}
-          className="group relative block overflow-hidden rounded-3xl bg-ink p-2 text-left ring-1 ring-ink/10"
-        >
-          <div className="relative overflow-hidden rounded-[1.35rem]">
-            <img
-              src={featured.img}
-              alt="Zine poster: monsoon telemetry from a Bengaluru lake"
-              width={1024}
-              height={1536}
-              className="h-[62vh] w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04] md:h-[80vh]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
+            type="button"
+            onClick={() => onOpen(featured)}
+            className="group relative block overflow-hidden rounded-3xl bg-ink p-2 text-left ring-1 ring-ink/10"
+          >
+            <div className="relative overflow-hidden rounded-[1.35rem]">
+              <img
+                src={featured.img}
+                alt="Zine poster: monsoon telemetry from a Bengaluru lake"
+                width={1024}
+                height={1536}
+                className="h-[62vh] w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04] md:h-[80vh]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
 
-            <span className="absolute left-5 top-5 rounded-full bg-clay px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-paper">
-              {featured.kicker}
-            </span>
+              <span className="absolute left-5 top-5 rounded-full bg-clay px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-paper">
+                {featured.kicker}
+              </span>
 
-            <div className="absolute inset-x-0 bottom-0 p-6 text-paper md:p-9">
-              <h2 className="max-w-[16ch] text-[8.5vw] font-medium leading-[0.88] tracking-[-0.035em] md:text-6xl">
-                {featured.titleParts?.[0]}{" "}
-                <span className="font-serif italic text-clay">{featured.titleParts?.[1]}</span>
-              </h2>
-              <p className="mt-4 max-w-lg text-sm leading-relaxed text-paper/70">{featured.dek}</p>
-              <div className="mt-6 flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.22em] text-paper/60">
-                <span>{featured.date}</span>
-                <span className="h-px w-6 bg-paper/30" />
-                <span>{featured.read} read</span>
-                <span className="ml-auto inline-flex items-center gap-2 text-paper transition-transform group-hover:translate-x-1">
-                  Read it →
-                </span>
+              <div className="absolute inset-x-0 bottom-0 p-6 text-paper md:p-9">
+                <h2 className="max-w-[16ch] text-[8.5vw] font-medium leading-[0.88] tracking-[-0.035em] md:text-6xl">
+                  {featured.titleParts?.[0]}{" "}
+                  <span className="font-serif italic text-clay">{featured.titleParts?.[1]}</span>
+                </h2>
+                <p className="mt-4 max-w-lg text-sm leading-relaxed text-paper/70">{featured.dek}</p>
+                <div className="mt-6 flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.22em] text-paper/60">
+                  <span>{featured.date}</span>
+                  <span className="h-px w-6 bg-paper/30" />
+                  <span>{featured.read} read</span>
+                  <span className="ml-auto inline-flex items-center gap-2 text-paper transition-transform group-hover:translate-x-1">
+                    Read it →
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        </button>
+          </button>
 
         <div className="flex flex-col gap-5">
           {side.map((p) => (
@@ -406,6 +410,7 @@ function FeaturedRow({ onOpen }: { onOpen: (p: Post) => void }) {
             </button>
           ))}
         </div>
+
       </div>
     </section>
   );
@@ -476,6 +481,7 @@ function Archive({ onOpen }: { onOpen: (p: Post) => void }) {
               </div>
             </button>
           ))}
+
         </div>
       </div>
     </section>
@@ -498,8 +504,8 @@ function SubscribeStrip() {
           </div>
           <div>
             <p className="text-sm leading-relaxed text-paper/60">
-              Raw build notes, telemetry dumps and trial footage. No newsletter voice, no
-              growth-hack subject lines.
+              Raw build notes, telemetry dumps and trial footage. No newsletter voice, no growth-hack
+              subject lines.
             </p>
             <a
               href="mailto:team.scrub0415@gmail.com?subject=Subscribe%20to%20SCRUB%20Field%20Notes"
@@ -613,3 +619,4 @@ function Blog() {
     </div>
   );
 }
+

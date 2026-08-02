@@ -19,8 +19,7 @@ export function ImpactCalc() {
           Model it yourself
         </div>
         <h2 className="mt-6 max-w-3xl text-4xl font-medium leading-[0.95] tracking-[-0.04em] md:text-6xl">
-          Drag the sliders.{" "}
-          <span className="font-serif italic text-gradient">Watch a city change.</span>
+          Drag the sliders. <span className="font-serif italic text-gradient">Watch a city change.</span>
         </h2>
 
         <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-16">
@@ -68,10 +67,7 @@ export function ImpactCalc() {
           <div className="grid gap-px overflow-hidden rounded-3xl bg-ink/10 sm:grid-cols-2">
             {[
               [`${perDay.toLocaleString("en-IN")} kg`, "debris recovered every day"],
-              [
-                `${(perYear / 1000).toLocaleString("en-IN", { maximumFractionDigits: 1 })} t`,
-                "recovered per year",
-              ],
+              [`${(perYear / 1000).toLocaleString("en-IN", { maximumFractionDigits: 1 })} t`, "recovered per year"],
               [`${manualCrew}×`, "manual crews replaced from hazardous water work"],
               [`${co2.toLocaleString("en-IN")} t`, "CO₂e avoided vs diesel skimmer fleets"],
             ].map(([v, l]) => (

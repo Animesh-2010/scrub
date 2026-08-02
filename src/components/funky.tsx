@@ -59,9 +59,7 @@ export function MemeBreak() {
               <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] opacity-70">
                 {m.tag}
               </span>
-              <p className="mt-4 text-[19px] font-medium leading-[1.15] tracking-[-0.02em]">
-                {m.top}
-              </p>
+              <p className="mt-4 text-[19px] font-medium leading-[1.15] tracking-[-0.02em]">{m.top}</p>
               <p className="mt-3 text-[14px] leading-snug opacity-80">{m.bottom}</p>
             </article>
           ))}
@@ -78,11 +76,7 @@ export function MemeBreak() {
 const OPTIONS = [
   { k: "😐", label: "haven't looked at a lake in years", res: "same. that's the whole problem." },
   { k: "🤢", label: "it smells from the main road", res: "that's ammonia. we measure it. hourly." },
-  {
-    k: "🫠",
-    label: "there used to be one here",
-    res: "1,200 of Bengaluru's are gone. we're late but not too late.",
-  },
+  { k: "🫠", label: "there used to be one here", res: "1,200 of Bengaluru's are gone. we're late but not too late." },
   { k: "🌱", label: "honestly? kinda clean", res: "lucky. now help us make that the default." },
 ];
 

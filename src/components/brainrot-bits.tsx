@@ -7,9 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 const SPLAT = ["🫧", "💧", "🐟", "🥤", "🩴", "🦆", "🧴", "♻️", "🌊", "🤖"];
 
 export function EmojiSplat() {
-  const [bits, setBits] = useState<{ id: number; x: number; y: number; e: string; dx: number }[]>(
-    [],
-  );
+  const [bits, setBits] = useState<{ id: number; x: number; y: number; e: string; dx: number }[]>([]);
 
   useEffect(() => {
     let id = 0;
@@ -82,13 +80,13 @@ export function BrainrotMeter() {
 
   return (
     <>
-      <div className="fixed inset-x-0 top-[58px] z-40 h-[6px] bg-ink/10">
+      <div className="fixed inset-x-0 top-0 z-[85] h-[6px] bg-ink/10">
         <div
           className="h-full bg-live transition-[width] duration-150"
           style={{ width: `${p * 100}%` }}
         />
       </div>
-      <div className="pointer-events-none fixed left-1/2 top-[66px] z-40 -translate-x-1/2">
+      <div className="pointer-events-none fixed left-1/2 top-2.5 z-[86] -translate-x-1/2">
         <span className="wobble inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-paper px-3 py-1 font-mono text-[9.5px] font-bold uppercase tracking-[0.14em] shadow-[3px_3px_0_0_var(--ink)]">
           <span className="text-[12px]">{d.e}</span> {d.label}
         </span>
@@ -117,30 +115,10 @@ const QUESTIONS = [
 ];
 
 const RESULTS = [
-  {
-    id: "V1",
-    title: "you are V1",
-    line: "flagship menace. loud, tested, patent-published. people rely on you and you hate that they're right to.",
-    e: "🛥️",
-  },
-  {
-    id: "V2",
-    title: "you are V2",
-    line: "lazy genius. you removed the motors and let physics do your homework. respectfully: goated.",
-    e: "🌀",
-  },
-  {
-    id: "V3",
-    title: "you are V3",
-    line: "the bouncer. you sit at the chokepoint and nothing gets past you. trash: not on the list.",
-    e: "🚧",
-  },
-  {
-    id: "V4",
-    title: "you are V4",
-    line: "nerd emoji bot. 20+ sensors of pure opinion. you WILL tell everyone the pH.",
-    e: "🤓",
-  },
+  { id: "V1", title: "you are V1", line: "flagship menace. loud, tested, patent-published. people rely on you and you hate that they're right to.", e: "🛥️" },
+  { id: "V2", title: "you are V2", line: "lazy genius. you removed the motors and let physics do your homework. respectfully: goated.", e: "🌀" },
+  { id: "V3", title: "you are V3", line: "the bouncer. you sit at the chokepoint and nothing gets past you. trash: not on the list.", e: "🚧" },
+  { id: "V4", title: "you are V4", line: "nerd emoji bot. 20+ sensors of pure opinion. you WILL tell everyone the pH.", e: "🤓" },
 ];
 
 export function WhichBot() {
@@ -154,9 +132,7 @@ export function WhichBot() {
       <div className="wobble rounded-[28px] border-2 border-ink bg-live p-7 text-center shadow-[8px_8px_0_0_var(--ink)]">
         <p className="text-5xl">{result.e}</p>
         <p className="mt-3 text-[32px] font-bold leading-none tracking-[-0.04em]">{result.title}</p>
-        <p className="mx-auto mt-3 max-w-[34ch] text-[15px] leading-relaxed opacity-80">
-          {result.line}
-        </p>
+        <p className="mx-auto mt-3 max-w-[34ch] text-[15px] leading-relaxed opacity-80">{result.line}</p>
         <button
           onClick={() => {
             setStep(0);

@@ -1,20 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Reveal, useInView } from "@/components/reveal";
 import { WaterField } from "@/components/water-field";
+import { LiveDose } from "@/components/live-dose";
 import { DepthDive } from "@/components/depth-dive";
 import { StickerWall } from "@/components/sticker-wall";
 import { ImpactCalc } from "@/components/impact-calc";
+import { LakeCompare } from "@/components/lake-compare";
 import { MemeBreak, VibeCheck, ScrollRank } from "@/components/funky";
 import { ModeProvider, ModeSwitch, useMode } from "@/components/mode";
+import { BrainrotSite } from "@/components/brainrot-site";
 
-const BrainrotSite = lazy(() =>
-  import("@/components/brainrot-site").then(({ BrainrotSite }) => ({ default: BrainrotSite })),
-);
+import lakeSketch from "@/assets/media/lake_sketch.jpg.asset.json";
 
 import v1Img from "@/assets/media/v1.jpg.asset.json";
 import v2Img from "@/assets/media/v2.jpg.asset.json";
+import cadVid from "@/assets/media/cad.mp4.asset.json";
 import heroVid from "@/assets/media/hero.mp4.asset.json";
+import trial1 from "@/assets/media/trial1.mp4.asset.json";
+import trial2 from "@/assets/media/trial2.mp4.asset.json";
+import trial3 from "@/assets/media/trial3.mp4.asset.json";
 import robotZine from "@/assets/media/robot_zine.jpg.asset.json";
 
 import shanta from "@/assets/team/shanta.jpg.asset.json";
@@ -27,11 +32,11 @@ import dishita from "@/assets/team/dishita.jpg.asset.json";
 import farhan from "@/assets/team/farhan.jpg.asset.json";
 import varsha from "@/assets/team/varsha.jpg.asset.json";
 import lakshay from "@/assets/team/lakshay.jpg.asset.json";
+import ashutosh from "@/assets/team/ashutosh.jpg.asset.json";
 import skanda from "@/assets/team/skanda.jpg.asset.json";
 import siddiq from "@/assets/team/siddiq.jpg.asset.json";
 
 const OG_IMG = robotZine.url;
-const HERO_POSTER = "/assets/videos/hero-lake-poster.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -42,10 +47,7 @@ export const Route = createFileRoute("/")({
         content:
           "SCRUB builds autonomous, solar-powered robots that pull waste out of India's urban lakes and stream live water-quality data. Patent published. Field-tested at Kengeri Lake with BBMP.",
       },
-      {
-        property: "og:title",
-        content: "SCRUB Robotics — Autonomous cleanup for India's urban lakes",
-      },
+      { property: "og:title", content: "SCRUB Robotics — Autonomous cleanup for India's urban lakes" },
       {
         property: "og:description",
         content:
@@ -53,10 +55,7 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:image", content: OG_IMG },
       { name: "twitter:image", content: OG_IMG },
-      {
-        name: "twitter:title",
-        content: "SCRUB Robotics — Autonomous lake cleaning, built in India",
-      },
+      { name: "twitter:title", content: "SCRUB Robotics — Autonomous lake cleaning, built in India" },
       {
         name: "twitter:description",
         content: "Solar robots cleaning India's lakes while streaming live water-quality data.",
@@ -91,8 +90,10 @@ export const Route = createFileRoute("/")({
 /* ---------------------------------------------------------------- data */
 
 const NAV = [
-  ["Problem", "#problem"],
   ["Products", "#products"],
+  ["Technology", "#technology"],
+  ["Field", "#field"],
+  ["Traction", "#traction"],
   ["Team", "#team"],
 ];
 
@@ -107,7 +108,7 @@ const TICKER = [
 
 const STATS = [
   { v: 4, suffix: "", label: "robot variants across water body types" },
-
+  
   { v: 2800, prefix: "₹", suffix: "Cr+", label: "annual government spend on lake remediation" },
   { v: 69485, suffix: "", label: "urban water bodies in India" },
 ];
@@ -193,36 +194,12 @@ const WHY_NOW = [
 ];
 
 const CAPABILITIES = [
-  [
-    "01",
-    "Autonomous Navigation",
-    "Grid-based GPS pathfinding with AI obstacle avoidance. SCRUB covers a defined lake zone without human intervention, returning to dock when full.",
-  ],
-  [
-    "02",
-    "Real-Time Water Quality",
-    "pH, turbidity, dissolved oxygen, TDS and temperature — continuously sensed, GPS-tagged, streamed live to a dashboard BBMP officers can open.",
-  ],
-  [
-    "03",
-    "Solar-Assisted Operation",
-    "Zero fuel cost. Solar charging extends operation through a full working day with zero emissions and zero chemical footprint.",
-  ],
-  [
-    "04",
-    "AI Debris Classification",
-    "Onboard vision distinguishes plastic, foam and organic debris in real time — validated at 90%+ precision on real lake footage.",
-  ],
-  [
-    "05",
-    "Aquatic-Safe Collection",
-    "A precision mesh conveyor lifts waste aboard while its aperture lets aquatic life pass through unharmed. Field-proven at Kengeri Lake.",
-  ],
-  [
-    "06",
-    "Dual-Mode Control",
-    "Fully autonomous AI navigation or instant manual RC override at any time — critical for safety near swimmers.",
-  ],
+  ["01", "Autonomous Navigation", "Grid-based GPS pathfinding with AI obstacle avoidance. SCRUB covers a defined lake zone without human intervention, returning to dock when full."],
+  ["02", "Real-Time Water Quality", "pH, turbidity, dissolved oxygen, TDS and temperature — continuously sensed, GPS-tagged, streamed live to a dashboard BBMP officers can open."],
+  ["03", "Solar-Assisted Operation", "Zero fuel cost. Solar charging extends operation through a full working day with zero emissions and zero chemical footprint."],
+  ["04", "AI Debris Classification", "Onboard vision distinguishes plastic, foam and organic debris in real time — validated at 90%+ precision on real lake footage."],
+  ["05", "Aquatic-Safe Collection", "A precision mesh conveyor lifts waste aboard while its aperture lets aquatic life pass through unharmed. Field-proven at Kengeri Lake."],
+  ["06", "Dual-Mode Control", "Fully autonomous AI navigation or instant manual RC override at any time — critical for safety near swimmers."],
 ];
 
 const SPECS = [
@@ -237,41 +214,11 @@ const SPECS = [
 const COMPARE = {
   cols: ["SCRUB", "Clear Robotics", "Omnipresent", "Aqua-Skimmer Pro"],
   rows: [
-    [
-      "AI Pathfinding",
-      "Adaptive AI navigation",
-      "Static path protocols",
-      "Semi-autonomous logic",
-      "Manual remote control",
-    ],
-    [
-      "Debris Handling",
-      "Conveyor for heavy debris & weeds",
-      "Lightweight debris only",
-      "Manual collection module",
-      "Skimmer blade system",
-    ],
-    [
-      "Water Quality Intel",
-      "Multi-parameter profiling suite",
-      "Basic pH and TDS",
-      "Limited pH and DO",
-      "No WQI integration",
-    ],
-    [
-      "Power Cycle",
-      "Renewable solar charging",
-      "Battery only",
-      "Hybrid battery",
-      "Battery and solar panel",
-    ],
-    [
-      "Durability",
-      "Ruggedised dual-hull for shallow water",
-      "Simple hull design",
-      "Moderate durability",
-      "Lightweight plastic frame",
-    ],
+    ["AI Pathfinding", "Adaptive AI navigation", "Static path protocols", "Semi-autonomous logic", "Manual remote control"],
+    ["Debris Handling", "Conveyor for heavy debris & weeds", "Lightweight debris only", "Manual collection module", "Skimmer blade system"],
+    ["Water Quality Intel", "Multi-parameter profiling suite", "Basic pH and TDS", "Limited pH and DO", "No WQI integration"],
+    ["Power Cycle", "Renewable solar charging", "Battery only", "Hybrid battery", "Battery and solar panel"],
+    ["Durability", "Ruggedised dual-hull for shallow water", "Simple hull design", "Moderate durability", "Lightweight plastic frame"],
   ],
 };
 
@@ -279,105 +226,38 @@ const TIMELINE = [
   {
     group: "Validated",
     items: [
-      [
-        "Sep 2024",
-        "Design Initiated",
-        "Engineering design begins, targeting Bengaluru's urban lake pollution crisis.",
-        "",
-      ],
-      [
-        "Jan 2025",
-        "Prototype V1 — Pool Trial",
-        "Conveyor mechanism validated. Onboard AI debris detection confirmed functional.",
-        "TRL 3",
-      ],
-      [
-        "Sep 2025",
-        "Patent Filed",
-        "Application filed with the Indian Patent Office — navigation, conveyor and IoT monitoring as one system.",
-        "Filed",
-      ],
-      [
-        "Oct 2025",
-        "Patent Published",
-        "Indian Patent Office publishes the application.",
-        "Published",
-      ],
-      [
-        "Apr 2026",
-        "Kengeri Lake Trial",
-        "Autonomous run with BBMP coordination. 20+ hours of cumulative field testing.",
-        "TRL 4",
-      ],
+      ["Sep 2024", "Design Initiated", "Engineering design begins, targeting Bengaluru's urban lake pollution crisis.", ""],
+      ["Jan 2025", "Prototype V1 — Pool Trial", "Conveyor mechanism validated. Onboard AI debris detection confirmed functional.", "TRL 3"],
+      ["Sep 2025", "Patent Filed", "Application filed with the Indian Patent Office — navigation, conveyor and IoT monitoring as one system.", "Filed"],
+      ["Oct 2025", "Patent Published", "Indian Patent Office publishes the application.", "Published"],
+      ["Apr 2026", "Kengeri Lake Trial", "Autonomous run with BBMP coordination. 20+ hours of cumulative field testing.", "TRL 4"],
     ],
   },
   {
     group: "In motion",
     items: [
-      [
-        "Jun 2026",
-        "Commercial Prototype · Field Trial 2",
-        "Custom PCB v2 in fabrication alongside a redesigned 3D-printed chassis. Second Kengeri trial underway.",
-        "In fabrication",
-      ],
+      ["Jun 2026", "Commercial Prototype · Field Trial 2", "Custom PCB v2 in fabrication alongside a redesigned 3D-printed chassis. Second Kengeri trial underway.", "In fabrication"],
     ],
   },
   {
     group: "Roadmap",
     items: [
-      [
-        "+12 Months",
-        "Municipal Pilot Deployments",
-        "Pilots with municipalities, alongside the launch of V2, V3 and V4 with early commercial customers.",
-        "",
-      ],
-      [
-        "+2 Years",
-        "Fleet Operations, Multi-City",
-        "Coordinated fleet deployments across Indian cities, unified under one monitoring dashboard.",
-        "",
-      ],
-      [
-        "+5 Years",
-        "Beyond the Surface",
-        "Underwater inspection, desilting, and a nationwide environmental data infrastructure layer.",
-        "",
-      ],
+      ["+12 Months", "Municipal Pilot Deployments", "Pilots with municipalities, alongside the launch of V2, V3 and V4 with early commercial customers.", ""],
+      ["+2 Years", "Fleet Operations, Multi-City", "Coordinated fleet deployments across Indian cities, unified under one monitoring dashboard.", ""],
+      ["+5 Years", "Beyond the Surface", "Underwater inspection, desilting, and a nationwide environmental data infrastructure layer.", ""],
     ],
   },
 ];
 
 const TRACTION = [
-  [
-    "01",
-    "Patent Published",
-    "Our core design is patented and published with the Indian Patent Office. Additional filings covering new mechanisms are in the pipeline.",
-  ],
-  [
-    "02",
-    "BBMP Field Coordination",
-    "Official coordination with BBMP's Lakes Department for trials at Kengeri Lake. MoU in progress; endorsement secured for funding applications.",
-  ],
-  [
-    "03",
-    "Institutional Backing",
-    "Incubated under the Department of Computer Science & Engineering, RV College of Engineering, with direct faculty mentorship.",
-  ],
+  ["01", "Patent Published", "Our core design is patented and published with the Indian Patent Office. Additional filings covering new mechanisms are in the pipeline."],
+  ["02", "BBMP Field Coordination", "Official coordination with BBMP's Lakes Department for trials at Kengeri Lake. MoU in progress; endorsement secured for funding applications."],
+  ["03", "Institutional Backing", "Incubated under the Department of Computer Science & Engineering, RV College of Engineering, with direct faculty mentorship."],
 ];
 
 const FACULTY = [
-  {
-    name: "Dr. Shanta Rangaswamy",
-    role: "HoD, Computer Science",
-    dept: "RVCE Bengaluru",
-    img: shanta.url,
-  },
-  {
-    name: "Dr. K. Badari Nath",
-    role: "Professor, Computer Science",
-    dept: "RVCE Bengaluru",
-    img: badari.url,
-  },
+  { name: "Dr. Shanta Rangaswamy", role: "HoD, Computer Science", dept: "RVCE Bengaluru", img: shanta.url },
+  { name: "Dr. K. Badari Nath", role: "Professor, Computer Science", dept: "RVCE Bengaluru", img: badari.url },
 ];
 
 const LEADS = [
@@ -390,65 +270,29 @@ const LEADS = [
 const CREW = [
   { name: "Dishita", role: "Software · AI/ML", img: dishita.url },
   { name: "Farhan", role: "Software · Sensor Integration", img: farhan.url },
-  { name: "Suraj", role: "Software · Algorithms", img: "/assets/images/team/Suraj.jpeg" },
+  { name: "Suraj", role: "Software · Algorithms", img: "" },
+  { name: "Adya", role: "Software · AI/ML", img: "" },
   { name: "Varsha", role: "Hardware · Embedded Systems", img: varsha.url },
   { name: "Lakshay", role: "Hardware · IoT", img: lakshay.url },
-  { name: "Hariharan", role: "Mechanical Design", img: "/assets/images/team/Hariharan.jpeg" },
-  { name: "Shivansh", role: "Team Member", img: "/assets/images/team/Shivansh.jpeg" },
+  { name: "Ashutosh Sinha", role: "Hardware · Sensor Stack", img: ashutosh.url },
+  { name: "Hariharan", role: "Mechanical Design", img: "" },
   { name: "Skanda", role: "Mechanical Design", img: skanda.url },
   { name: "Siddiq", role: "Mechanical Design", img: siddiq.url },
+  { name: "Prasanna", role: "Mechanical Design", img: "" },
 ];
 
 const MODELS = [
-  [
-    "RaaS",
-    "Robots as a Service",
-    "Recurring · Monthly or annual",
-    "SCRUB owns, deploys and maintains the hardware. You pay a monthly lease — zero capex, full operational coverage.",
-  ],
-  [
-    "CaaS",
-    "Cleaning as a Service",
-    "Recurring · Per lake contract",
-    "Annual contract for scheduled lake cleaning. Crew and bots on a defined frequency — weekly or bi-weekly.",
-  ],
-  [
-    "WaaS",
-    "Water Intelligence as a Service",
-    "Recurring · Per site",
-    "Subscription to SCRUB's environmental dashboard — pH, TDS, turbidity, DO — GPS-tagged and streamed in real time.",
-  ],
-  [
-    "Direct",
-    "Bot Purchase",
-    "One-time · Hardware",
-    "Outright purchase of a SCRUB unit. Suited to corporates, resorts, ports and research institutions.",
-  ],
-  [
-    "AMC",
-    "Annual Maintenance Contract",
-    "Recurring · Per unit",
-    "12-month service covering predictive maintenance, OTA firmware updates, sensor recalibration and spares.",
-  ],
-  [
-    "Data",
-    "Research & Compliance Data",
-    "Per dataset · Annual",
-    "Aggregate, anonymised lake health data licensed to planners, water research institutes and consultancies.",
-  ],
+  ["RaaS", "Robots as a Service", "Recurring · Monthly or annual", "SCRUB owns, deploys and maintains the hardware. You pay a monthly lease — zero capex, full operational coverage."],
+  ["CaaS", "Cleaning as a Service", "Recurring · Per lake contract", "Annual contract for scheduled lake cleaning. Crew and bots on a defined frequency — weekly or bi-weekly."],
+  ["WaaS", "Water Intelligence as a Service", "Recurring · Per site", "Subscription to SCRUB's environmental dashboard — pH, TDS, turbidity, DO — GPS-tagged and streamed in real time."],
+  ["Direct", "Bot Purchase", "One-time · Hardware", "Outright purchase of a SCRUB unit. Suited to corporates, resorts, ports and research institutions."],
+  ["AMC", "Annual Maintenance Contract", "Recurring · Per unit", "12-month service covering predictive maintenance, OTA firmware updates, sensor recalibration and spares."],
+  ["Data", "Research & Compliance Data", "Per dataset · Annual", "Aggregate, anonymised lake health data licensed to planners, water research institutes and consultancies."],
 ];
 
 /* ---------------------------------------------------------------- bits */
 
-function Counter({
-  to,
-  prefix = "",
-  suffix = "",
-}: {
-  to: number;
-  prefix?: string;
-  suffix?: string;
-}) {
+function Counter({ to, prefix = "", suffix = "" }: { to: number; prefix?: string; suffix?: string }) {
   const { ref, seen } = useInView<HTMLSpanElement>(0.4);
   const [n, setN] = useState(0);
 
@@ -485,6 +329,7 @@ function SectionLabel({ children }: { children: string }) {
   );
 }
 
+
 /* ---------------------------------------------------------------- nav */
 
 function Nav() {
@@ -509,11 +354,13 @@ function Nav() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 md:px-8">
           <a href="#top" className="flex items-center gap-2.5">
             <span
-              className={`grid h-8 w-8 place-items-center rounded-full text-[15px] font-bold italic ${
+              className={`grid h-8 w-8 place-items-center rounded-full ${
                 solid ? "bg-ink text-paper" : "bg-paper text-ink"
               }`}
             >
-              S
+              <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="currentColor">
+                <path d="M3 12c3-4 6-4 9 0s6 4 5-2c-1 6-4 6-9 2s-8-4-5 0z" />
+              </svg>
             </span>
             <span className="text-[17px] font-medium tracking-tight">Scrub</span>
           </a>
@@ -546,16 +393,6 @@ function Nav() {
             >
               Blog
             </Link>
-            <a
-              href="/links.html"
-              className={`rounded-full px-3.5 py-1.5 text-[12.5px] transition-colors ${
-                solid
-                  ? "text-ink-60 hover:bg-paper hover:text-ink"
-                  : "text-paper/75 hover:bg-white/15 hover:text-paper"
-              }`}
-            >
-              Links
-            </a>
           </nav>
 
           <div className="flex items-center gap-2">
@@ -579,6 +416,7 @@ function Nav() {
         </div>
       </div>
 
+
       {open && (
         <div className="border-b border-ink-10 bg-canvas px-5 pb-5 md:hidden">
           {[...NAV, ["Contact", "#contact"]].map(([label, href]) => (
@@ -591,12 +429,9 @@ function Nav() {
               {label}
             </a>
           ))}
-          <Link to="/blog" className="block border-b border-ink-10 py-3 text-sm">
+          <Link to="/blog" className="block py-3 text-sm">
             Blog
           </Link>
-          <a href="/links.html" className="block py-3 text-sm">
-            Links
-          </a>
         </div>
       )}
     </header>
@@ -629,7 +464,7 @@ function Hero() {
       <div className="absolute inset-0">
         <video
           className="h-full w-full scale-105 object-cover"
-          poster={HERO_POSTER}
+          poster={v1Img.url}
           autoPlay
           muted
           loop
@@ -666,8 +501,8 @@ function Hero() {
           <Reveal delay={160}>
             <p className="max-w-xl text-[16px] leading-relaxed text-paper/75">
               India has <span className="text-paper">69,485</span> urban water bodies and almost no
-              way to keep them clean. SCRUB deploys solar robots that skim the waste, read the
-              water, and stream the proof — every single day.
+              way to keep them clean. SCRUB deploys solar robots that skim the waste, read the water,
+              and stream the proof — every single day.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
@@ -688,6 +523,7 @@ function Hero() {
             </div>
           </Reveal>
         </div>
+
 
         <div className="mt-12 flex items-center gap-3 text-paper/45">
           <span className="scroll-cue block h-6 w-px bg-paper/50" />
@@ -720,6 +556,7 @@ function StatBand() {
   );
 }
 
+
 /* ---------------------------------------------------------------- products */
 
 function Products() {
@@ -730,7 +567,8 @@ function Products() {
         <Reveal>
           <SectionLabel>Product lineup</SectionLabel>
           <h2 className="mt-5 max-w-[18ch] text-6xl font-medium leading-[0.9] tracking-[-0.04em] md:text-8xl">
-            Four platforms. <span className="font-serif italic text-gradient">One ecosystem.</span>
+            Four platforms.{" "}
+            <span className="font-serif italic text-gradient">One ecosystem.</span>
           </h2>
           <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-60">
             Every SCRUB product is designed for a specific water body type and deployment scenario —
@@ -825,6 +663,8 @@ function Products() {
             </Reveal>
           ))}
         </div>
+
+
       </div>
     </section>
   );
@@ -835,10 +675,7 @@ function Products() {
 function Problem() {
   const { ref, seen } = useInView<HTMLDivElement>(0.25);
   return (
-    <section
-      id="problem"
-      className="relative overflow-hidden border-y border-ink-10 bg-paper px-5 py-20 md:px-8 md:py-28"
-    >
+    <section id="problem" className="relative overflow-hidden border-y border-ink-10 bg-paper px-5 py-20 md:px-8 md:py-28">
       <div className="aurora aurora-soft" />
       <WaterField />
       <div className="relative mx-auto max-w-7xl">
@@ -863,9 +700,9 @@ function Problem() {
               autonomous alternative.
             </p>
             <p className="border-l-2 border-clay pl-5 text-ink-70">
-              The National Green Tribunal has issued hundreds of orders against civic bodies for
-              lake pollution. BBMP faces court-ordered deadlines for water quality compliance —
-              demand for an autonomous solution is no longer optional.
+              The National Green Tribunal has issued hundreds of orders against civic bodies for lake
+              pollution. BBMP faces court-ordered deadlines for water quality compliance — demand for
+              an autonomous solution is no longer optional.
             </p>
           </Reveal>
 
@@ -914,9 +751,7 @@ function Market() {
         <div className="mt-12 grid gap-px bg-ink-10 md:grid-cols-3">
           {MARKET.map((m, i) => (
             <Reveal key={m.k} delay={i * 90} className="bg-canvas p-7 md:p-9">
-              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-clay">
-                {m.k}
-              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-clay">{m.k}</span>
               <div className="mt-4 text-3xl font-medium tracking-[-0.03em] md:text-4xl">{m.v}</div>
               <p className="mt-3 text-[13px] leading-relaxed text-ink-50">{m.d}</p>
             </Reveal>
@@ -925,15 +760,10 @@ function Market() {
 
         <div className="mt-12 grid gap-10 md:grid-cols-2">
           <Reveal>
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.24em] text-ink-40">
-              Why now
-            </h3>
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.24em] text-ink-40">Why now</h3>
             <ul className="mt-5 space-y-4">
               {WHY_NOW.map((w) => (
-                <li
-                  key={w}
-                  className="flex gap-3 border-b border-ink-10 pb-4 text-[14px] text-ink-70"
-                >
+                <li key={w} className="flex gap-3 border-b border-ink-10 pb-4 text-[14px] text-ink-70">
                   <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-clay" />
                   {w}
                 </li>
@@ -945,21 +775,16 @@ function Market() {
               Where we'll start
             </h3>
             <div className="mt-5 flex flex-wrap gap-2">
-              {[
-                "BBMP",
-                "Municipal Corporations",
-                "Smart Cities",
-                "Industries",
-                "Large Campuses",
-                "CSR-Funded Lake Restoration",
-              ].map((c) => (
-                <span
-                  key={c}
-                  className="rounded-full bg-paper px-4 py-2 text-[13px] text-ink-70 ring-1 ring-ink/10"
-                >
-                  {c}
-                </span>
-              ))}
+              {["BBMP", "Municipal Corporations", "Smart Cities", "Industries", "Large Campuses", "CSR-Funded Lake Restoration"].map(
+                (c) => (
+                  <span
+                    key={c}
+                    className="rounded-full bg-paper px-4 py-2 text-[13px] text-ink-70 ring-1 ring-ink/10"
+                  >
+                    {c}
+                  </span>
+                ),
+              )}
             </div>
           </Reveal>
         </div>
@@ -972,10 +797,7 @@ function Market() {
 
 function Technology() {
   return (
-    <section
-      id="technology"
-      className="border-y border-ink-10 bg-paper px-5 py-20 md:px-8 md:py-28"
-    >
+    <section id="technology" className="border-y border-ink-10 bg-paper px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <SectionLabel>Technology</SectionLabel>
@@ -987,14 +809,7 @@ function Technology() {
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[1.15fr_1fr]">
           <Reveal className="overflow-hidden rounded-3xl bg-ink ring-1 ring-ink/10">
-            <video
-              className="h-[42vh] w-full object-cover md:h-[58vh]"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-            >
+            <video className="h-[42vh] w-full object-cover md:h-[58vh]" autoPlay muted loop playsInline preload="none">
               <source src={cadVid.url} type="video/mp4" />
             </video>
           </Reveal>
@@ -1006,16 +821,8 @@ function Technology() {
               Field-validated at Kengeri Lake in coordination with BBMP.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
-              {[
-                "Solar-assisted",
-                "AI debris classification",
-                "Autonomous navigation",
-                "Field-tested · Kengeri Lake",
-              ].map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full bg-canvas px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-60 ring-1 ring-ink/10"
-                >
+              {["Solar-assisted", "AI debris classification", "Autonomous navigation", "Field-tested · Kengeri Lake"].map((t) => (
+                <span key={t} className="rounded-full bg-canvas px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-60 ring-1 ring-ink/10">
                   {t}
                 </span>
               ))}
@@ -1023,9 +830,7 @@ function Technology() {
             <dl className="mt-8 divide-y divide-ink-10 border-y border-ink-10">
               {SPECS.map(([k, v]) => (
                 <div key={k} className="grid grid-cols-[8rem_1fr] gap-4 py-3.5">
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-40">
-                    {k}
-                  </dt>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-40">{k}</dt>
                   <dd className="text-[13.5px] text-ink-70">{v}</dd>
                 </div>
               ))}
@@ -1041,11 +846,7 @@ function Technology() {
 
         <div className="mt-14 grid gap-px bg-ink-10 md:grid-cols-2 lg:grid-cols-3">
           {CAPABILITIES.map(([n, title, body], i) => (
-            <Reveal
-              key={n}
-              delay={(i % 3) * 80}
-              className="group bg-paper p-7 transition-colors hover:bg-canvas"
-            >
+            <Reveal key={n} delay={(i % 3) * 80} className="group bg-paper p-7 transition-colors hover:bg-canvas">
               <span className="font-mono text-[10px] tracking-[0.2em] text-clay">{n}</span>
               <h3 className="mt-4 text-xl font-medium tracking-[-0.02em]">{title}</h3>
               <p className="mt-3 text-[13px] leading-relaxed text-ink-60">{body}</p>
@@ -1123,10 +924,7 @@ function Field() {
   const clip = clips[main];
 
   return (
-    <section
-      id="field"
-      className="relative overflow-hidden bg-ink px-5 py-20 text-paper md:px-8 md:py-28"
-    >
+    <section id="field" className="relative overflow-hidden bg-ink px-5 py-20 text-paper md:px-8 md:py-28">
       <div className="aurora aurora-soft" />
       <WaterField tone="dark" />
       <div className="relative mx-auto max-w-6xl">
@@ -1201,13 +999,7 @@ function Field() {
                 }`}
               >
                 <div className="aspect-video w-full bg-black">
-                  <video
-                    className="h-full w-full object-cover"
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                  >
+                  <video className="h-full w-full object-cover" muted loop playsInline preload="metadata">
                     <source src={c.src} type="video/mp4" />
                   </video>
                 </div>
@@ -1239,61 +1031,11 @@ type Metric = {
 };
 
 const METRICS: Metric[] = [
-  {
-    key: "ph",
-    label: "pH Level",
-    unit: "pH",
-    base: 8.4,
-    jitter: 0.12,
-    decimals: 2,
-    status: "Borderline",
-    tone: "warn",
-    safe: "safe 6.5–8.5",
-  },
-  {
-    key: "do",
-    label: "Dissolved Oxygen",
-    unit: "mg/L",
-    base: 3.2,
-    jitter: 0.2,
-    decimals: 2,
-    status: "Critical",
-    tone: "bad",
-    safe: "safe > 5 mg/L",
-  },
-  {
-    key: "turb",
-    label: "Turbidity",
-    unit: "NTU",
-    base: 18.6,
-    jitter: 1.1,
-    decimals: 1,
-    status: "Elevated",
-    tone: "warn",
-    safe: "safe < 10 NTU",
-  },
-  {
-    key: "tds",
-    label: "TDS",
-    unit: "ppm",
-    base: 842,
-    jitter: 14,
-    decimals: 0,
-    status: "High",
-    tone: "bad",
-    safe: "safe < 500 ppm",
-  },
-  {
-    key: "temp",
-    label: "Temperature",
-    unit: "°C",
-    base: 28.1,
-    jitter: 0.25,
-    decimals: 1,
-    status: "Normal",
-    tone: "good",
-    safe: "safe 20–32 °C",
-  },
+  { key: "ph", label: "pH Level", unit: "pH", base: 8.4, jitter: 0.12, decimals: 2, status: "Borderline", tone: "warn", safe: "safe 6.5–8.5" },
+  { key: "do", label: "Dissolved Oxygen", unit: "mg/L", base: 3.2, jitter: 0.2, decimals: 2, status: "Critical", tone: "bad", safe: "safe > 5 mg/L" },
+  { key: "turb", label: "Turbidity", unit: "NTU", base: 18.6, jitter: 1.1, decimals: 1, status: "Elevated", tone: "warn", safe: "safe < 10 NTU" },
+  { key: "tds", label: "TDS", unit: "ppm", base: 842, jitter: 14, decimals: 0, status: "High", tone: "bad", safe: "safe < 500 ppm" },
+  { key: "temp", label: "Temperature", unit: "°C", base: 28.1, jitter: 0.25, decimals: 1, status: "Normal", tone: "good", safe: "safe 20–32 °C" },
 ];
 
 function Telemetry() {
@@ -1326,8 +1068,7 @@ function Telemetry() {
           <SectionLabel>Live sensor feed</SectionLabel>
           <div className="mt-5 flex flex-wrap items-end justify-between gap-5">
             <h2 className="max-w-[18ch] text-4xl font-medium leading-[0.95] tracking-[-0.035em] md:text-6xl">
-              Kengeri Lake —{" "}
-              <span className="font-serif italic text-clay">water quality monitor.</span>
+              Kengeri Lake — <span className="font-serif italic text-clay">water quality monitor.</span>
             </h2>
             <span className="inline-flex items-center gap-2 rounded-full bg-canvas px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-50 ring-1 ring-ink/10">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-live" />
@@ -1343,33 +1084,21 @@ function Telemetry() {
             const min = Math.min(...arr);
             const max = Math.max(...arr);
             const pts = arr
-              .map(
-                (v, idx) =>
-                  `${(idx / (arr.length - 1)) * 100},${32 - ((v - min) / (max - min || 1)) * 28 - 2}`,
-              )
+              .map((v, idx) => `${(idx / (arr.length - 1)) * 100},${32 - ((v - min) / (max - min || 1)) * 28 - 2}`)
               .join(" ");
             return (
               <Reveal key={m.key} delay={i * 70} className="bg-paper p-6">
                 <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-40">
                   {m.label}
                 </div>
-                <div
-                  className={`mt-3 text-4xl font-medium tracking-[-0.03em] tabular-nums ${toneClass(m.tone)}`}
-                >
+                <div className={`mt-3 text-4xl font-medium tracking-[-0.03em] tabular-nums ${toneClass(m.tone)}`}>
                   {val.toFixed(m.decimals)}
                 </div>
                 <div className="mt-1 text-[11px] text-ink-40">
                   {m.unit} · {m.safe}
                 </div>
                 <svg viewBox="0 0 100 32" preserveAspectRatio="none" className="mt-4 h-8 w-full">
-                  <polyline
-                    points={pts}
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    className={toneClass(m.tone)}
-                    opacity="0.5"
-                  />
+                  <polyline points={pts} fill="none" stroke="currentColor" strokeWidth="1.2" className={toneClass(m.tone)} opacity="0.5" />
                 </svg>
                 <span className="mt-2 inline-block font-mono text-[9.5px] uppercase tracking-[0.18em] text-ink-50">
                   {m.status}
@@ -1415,12 +1144,8 @@ function Timeline() {
                         {date}
                       </span>
                       <div>
-                        <h3 className="text-xl font-medium tracking-[-0.02em] md:text-2xl">
-                          {title}
-                        </h3>
-                        <p className="mt-2 max-w-2xl text-[13.5px] leading-relaxed text-ink-60">
-                          {body}
-                        </p>
+                        <h3 className="text-xl font-medium tracking-[-0.02em] md:text-2xl">{title}</h3>
+                        <p className="mt-2 max-w-2xl text-[13.5px] leading-relaxed text-ink-60">{body}</p>
                         {tag && (
                           <span className="mt-3 inline-block rounded-full bg-paper px-3 py-1 font-mono text-[9.5px] uppercase tracking-[0.16em] text-clay ring-1 ring-ink/10">
                             {tag}
@@ -1639,14 +1364,8 @@ function Models() {
 
         <div className="mt-12 grid gap-px bg-paper/15 md:grid-cols-2 lg:grid-cols-3">
           {MODELS.map(([k, t, meta, body], i) => (
-            <Reveal
-              key={k}
-              delay={(i % 3) * 80}
-              className="bg-ink p-7 transition-colors hover:bg-[#0d2f2b]"
-            >
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay">
-                {k}
-              </span>
+            <Reveal key={k} delay={(i % 3) * 80} className="bg-ink p-7 transition-colors hover:bg-[#0d2f2b]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay">{k}</span>
               <h3 className="mt-4 text-xl font-medium tracking-[-0.02em]">{t}</h3>
               <p className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.16em] text-paper/40">
                 {meta}
@@ -1675,10 +1394,7 @@ function Contact() {
     "Something else",
   ];
   return (
-    <section
-      id="contact"
-      className="relative overflow-hidden bg-ink px-5 py-20 text-paper md:px-8 md:py-28"
-    >
+    <section id="contact" className="relative overflow-hidden bg-ink px-5 py-20 text-paper md:px-8 md:py-28">
       <div className="aurora" />
       <WaterField tone="dark" />
       <div className="relative mx-auto max-w-7xl">
@@ -1689,7 +1405,8 @@ function Contact() {
               Get in touch
             </div>
             <h2 className="mt-5 max-w-[16ch] text-5xl font-medium leading-[0.9] tracking-[-0.04em] md:text-7xl">
-              Let's talk about <span className="font-serif italic text-clay">your water body.</span>
+              Let's talk about{" "}
+              <span className="font-serif italic text-clay">your water body.</span>
             </h2>
             <p className="mt-5 max-w-lg text-[14.5px] leading-relaxed text-paper/60">
               Whether you have a lake to clean, a CSR mandate to fulfil, or a deployment question —
@@ -1700,7 +1417,7 @@ function Contact() {
               {[
                 ["Email", "team.scrub0415@gmail.com", "mailto:team.scrub0415@gmail.com"],
                 ["Phone", "+91 95698 86982", "tel:+919569886982"],
-                ["Follow", "@team_.scrub", "https://instagram.com/team_.scrub"],
+                ["Follow", "Instagram", "https://instagram.com"],
               ].map(([l, v, href]) => (
                 <div key={l}>
                   <div className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-paper/40">
@@ -1770,12 +1487,6 @@ function Footer() {
           <Link to="/blog" className="hover:text-paper">
             Blog
           </Link>
-          <a href="/links.html" className="hover:text-paper">
-            Links
-          </a>
-          <a href="https://instagram.com/team_.scrub" className="hover:text-paper">
-            @team_.scrub
-          </a>
         </div>
       </div>
     </footer>
@@ -1832,6 +1543,7 @@ function Compare() {
 
 /* ---------------------------------------------------------------- page */
 
+
 function ScrollProgress() {
   const [p, setP] = useState(0);
   useEffect(() => {
@@ -1860,15 +1572,7 @@ function Home() {
 
 function ModeSwitcherRoot() {
   const { mode } = useMode();
-  if (mode === "brainrot") {
-    return (
-      <Suspense
-        fallback={<div className="min-h-screen bg-paper" aria-label="Loading Brainrot mode" />}
-      >
-        <BrainrotSite />
-      </Suspense>
-    );
-  }
+  if (mode === "brainrot") return <BrainrotSite />;
   return (
     <div className="min-h-screen bg-canvas">
       <ScrollProgress />
@@ -1877,16 +1581,25 @@ function ModeSwitcherRoot() {
       <Nav />
       <Hero />
       <Ticker />
+      <LiveDose />
       <StatBand />
-      <Problem />
       <Products />
       <MemeBreak />
+      <Compare />
+      <Problem />
       <DepthDive />
+      <Market />
+      <Technology />
       <StickerWall />
+      <Competition />
+      <Field />
       <VibeCheck />
+      <Telemetry />
       <ImpactCalc />
       <Timeline />
+      <Traction />
       <Team />
+      <Models />
       <Contact />
 
       <Footer />

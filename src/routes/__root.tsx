@@ -47,7 +47,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <p className="font-mono text-[11px] uppercase tracking-widest text-ink-40">
           System interruption
         </p>
-        <h1 className="mt-6 text-3xl font-light tracking-tight text-ink">This page didn't load.</h1>
+        <h1 className="mt-6 text-3xl font-light tracking-tight text-ink">
+          This page didn't load.
+        </h1>
         <p className="mt-3 text-sm text-ink-50">
           Something failed on our end. Try again or head back home.
         </p>
@@ -93,7 +95,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap",
       },
-      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
