@@ -1,25 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Reveal, useInView } from "@/components/reveal";
 import { WaterField } from "@/components/water-field";
-import { LiveDose } from "@/components/live-dose";
 import { DepthDive } from "@/components/depth-dive";
 import { StickerWall } from "@/components/sticker-wall";
 import { ImpactCalc } from "@/components/impact-calc";
-import { LakeCompare } from "@/components/lake-compare";
 import { MemeBreak, VibeCheck, ScrollRank } from "@/components/funky";
 import { ModeProvider, ModeSwitch, useMode } from "@/components/mode";
-import { BrainrotSite } from "@/components/brainrot-site";
-
-import lakeSketch from "@/assets/media/lake_sketch.jpg.asset.json";
+const BrainrotSite = lazy(() =>
+  import("@/components/brainrot-site").then(({ BrainrotSite }) => ({ default: BrainrotSite })),
+);
 
 import v1Img from "@/assets/media/v1.jpg.asset.json";
 import v2Img from "@/assets/media/v2.jpg.asset.json";
-import cadVid from "@/assets/media/cad.mp4.asset.json";
 import heroVid from "@/assets/media/hero.mp4.asset.json";
-import trial1 from "@/assets/media/trial1.mp4.asset.json";
-import trial2 from "@/assets/media/trial2.mp4.asset.json";
-import trial3 from "@/assets/media/trial3.mp4.asset.json";
 import robotZine from "@/assets/media/robot_zine.jpg.asset.json";
 
 import shanta from "@/assets/team/shanta.jpg.asset.json";
@@ -32,11 +26,11 @@ import dishita from "@/assets/team/dishita.jpg.asset.json";
 import farhan from "@/assets/team/farhan.jpg.asset.json";
 import varsha from "@/assets/team/varsha.jpg.asset.json";
 import lakshay from "@/assets/team/lakshay.jpg.asset.json";
-import ashutosh from "@/assets/team/ashutosh.jpg.asset.json";
 import skanda from "@/assets/team/skanda.jpg.asset.json";
 import siddiq from "@/assets/team/siddiq.jpg.asset.json";
 
 const OG_IMG = robotZine.url;
+const HERO_POSTER = "/assets/videos/hero-lake-poster.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -90,10 +84,8 @@ export const Route = createFileRoute("/")({
 /* ---------------------------------------------------------------- data */
 
 const NAV = [
+  ["Problem", "#problem"],
   ["Products", "#products"],
-  ["Technology", "#technology"],
-  ["Field", "#field"],
-  ["Traction", "#traction"],
   ["Team", "#team"],
 ];
 
@@ -180,47 +172,6 @@ const BARS = [
   { label: "Cities at risk of groundwater exhaustion", pct: 60, display: "21 major" },
 ];
 
-const MARKET = [
-  { k: "TAM", v: "₹2,800–3,400 Cr", d: "Entire Indian urban waterbody maintenance market." },
-  { k: "SAM", v: "₹600–900 Cr", d: "Tier-1 cities and Karnataka municipal waterbody management." },
-  { k: "SOM", v: "₹35–55 Cr", d: "Initial deployment across Karnataka and nearby metros." },
-];
-
-const WHY_NOW = [
-  "₹6,270 Cr in AMRUT 2.0 water body projects already approved nationally.",
-  "India's smart water management market growing at 16.4% CAGR (2026–2030).",
-  "Zero domestic rival manufacturing autonomous aquatic cleanup robots.",
-  "Day-1 budget exists — BBMP's lake budget is active and growing.",
-];
-
-const CAPABILITIES = [
-  ["01", "Autonomous Navigation", "Grid-based GPS pathfinding with AI obstacle avoidance. SCRUB covers a defined lake zone without human intervention, returning to dock when full."],
-  ["02", "Real-Time Water Quality", "pH, turbidity, dissolved oxygen, TDS and temperature — continuously sensed, GPS-tagged, streamed live to a dashboard BBMP officers can open."],
-  ["03", "Solar-Assisted Operation", "Zero fuel cost. Solar charging extends operation through a full working day with zero emissions and zero chemical footprint."],
-  ["04", "AI Debris Classification", "Onboard vision distinguishes plastic, foam and organic debris in real time — validated at 90%+ precision on real lake footage."],
-  ["05", "Aquatic-Safe Collection", "A precision mesh conveyor lifts waste aboard while its aperture lets aquatic life pass through unharmed. Field-proven at Kengeri Lake."],
-  ["06", "Dual-Mode Control", "Fully autonomous AI navigation or instant manual RC override at any time — critical for safety near swimmers."],
-];
-
-const SPECS = [
-  ["Collection", "Full working cycle before shore return"],
-  ["Power", "Solar-assisted, all-day autonomy"],
-  ["Navigation", "Autonomous GPS coverage, manual override anytime"],
-  ["AI Vision", "Real-time onboard debris classification"],
-  ["Water Sensing", "Continuous multi-parameter monitoring"],
-  ["Build", "Marine-grade, corrosion-resistant construction"],
-];
-
-const COMPARE = {
-  cols: ["SCRUB", "Clear Robotics", "Omnipresent", "Aqua-Skimmer Pro"],
-  rows: [
-    ["AI Pathfinding", "Adaptive AI navigation", "Static path protocols", "Semi-autonomous logic", "Manual remote control"],
-    ["Debris Handling", "Conveyor for heavy debris & weeds", "Lightweight debris only", "Manual collection module", "Skimmer blade system"],
-    ["Water Quality Intel", "Multi-parameter profiling suite", "Basic pH and TDS", "Limited pH and DO", "No WQI integration"],
-    ["Power Cycle", "Renewable solar charging", "Battery only", "Hybrid battery", "Battery and solar panel"],
-    ["Durability", "Ruggedised dual-hull for shallow water", "Simple hull design", "Moderate durability", "Lightweight plastic frame"],
-  ],
-};
 
 const TIMELINE = [
   {
@@ -249,12 +200,6 @@ const TIMELINE = [
   },
 ];
 
-const TRACTION = [
-  ["01", "Patent Published", "Our core design is patented and published with the Indian Patent Office. Additional filings covering new mechanisms are in the pipeline."],
-  ["02", "BBMP Field Coordination", "Official coordination with BBMP's Lakes Department for trials at Kengeri Lake. MoU in progress; endorsement secured for funding applications."],
-  ["03", "Institutional Backing", "Incubated under the Department of Computer Science & Engineering, RV College of Engineering, with direct faculty mentorship."],
-];
-
 const FACULTY = [
   { name: "Dr. Shanta Rangaswamy", role: "HoD, Computer Science", dept: "RVCE Bengaluru", img: shanta.url },
   { name: "Dr. K. Badari Nath", role: "Professor, Computer Science", dept: "RVCE Bengaluru", img: badari.url },
@@ -270,24 +215,13 @@ const LEADS = [
 const CREW = [
   { name: "Dishita", role: "Software · AI/ML", img: dishita.url },
   { name: "Farhan", role: "Software · Sensor Integration", img: farhan.url },
-  { name: "Suraj", role: "Software · Algorithms", img: "" },
-  { name: "Adya", role: "Software · AI/ML", img: "" },
+  { name: "Suraj", role: "Software · Algorithms", img: "/assets/images/team/Suraj.jpeg" },
   { name: "Varsha", role: "Hardware · Embedded Systems", img: varsha.url },
   { name: "Lakshay", role: "Hardware · IoT", img: lakshay.url },
-  { name: "Ashutosh Sinha", role: "Hardware · Sensor Stack", img: ashutosh.url },
-  { name: "Hariharan", role: "Mechanical Design", img: "" },
+  { name: "Hariharan", role: "Mechanical Design", img: "/assets/images/team/Hariharan.jpeg" },
+  { name: "Shivansh", role: "Team Member", img: "/assets/images/team/Shivansh.jpeg" },
   { name: "Skanda", role: "Mechanical Design", img: skanda.url },
   { name: "Siddiq", role: "Mechanical Design", img: siddiq.url },
-  { name: "Prasanna", role: "Mechanical Design", img: "" },
-];
-
-const MODELS = [
-  ["RaaS", "Robots as a Service", "Recurring · Monthly or annual", "SCRUB owns, deploys and maintains the hardware. You pay a monthly lease — zero capex, full operational coverage."],
-  ["CaaS", "Cleaning as a Service", "Recurring · Per lake contract", "Annual contract for scheduled lake cleaning. Crew and bots on a defined frequency — weekly or bi-weekly."],
-  ["WaaS", "Water Intelligence as a Service", "Recurring · Per site", "Subscription to SCRUB's environmental dashboard — pH, TDS, turbidity, DO — GPS-tagged and streamed in real time."],
-  ["Direct", "Bot Purchase", "One-time · Hardware", "Outright purchase of a SCRUB unit. Suited to corporates, resorts, ports and research institutions."],
-  ["AMC", "Annual Maintenance Contract", "Recurring · Per unit", "12-month service covering predictive maintenance, OTA firmware updates, sensor recalibration and spares."],
-  ["Data", "Research & Compliance Data", "Per dataset · Annual", "Aggregate, anonymised lake health data licensed to planners, water research institutes and consultancies."],
 ];
 
 /* ---------------------------------------------------------------- bits */
@@ -354,13 +288,11 @@ function Nav() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 md:px-8">
           <a href="#top" className="flex items-center gap-2.5">
             <span
-              className={`grid h-8 w-8 place-items-center rounded-full ${
+              className={`grid h-8 w-8 place-items-center rounded-full text-[15px] font-bold italic ${
                 solid ? "bg-ink text-paper" : "bg-paper text-ink"
               }`}
             >
-              <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="currentColor">
-                <path d="M3 12c3-4 6-4 9 0s6 4 5-2c-1 6-4 6-9 2s-8-4-5 0z" />
-              </svg>
+              S
             </span>
             <span className="text-[17px] font-medium tracking-tight">Scrub</span>
           </a>
@@ -464,7 +396,7 @@ function Hero() {
       <div className="absolute inset-0">
         <video
           className="h-full w-full scale-105 object-cover"
-          poster={v1Img.url}
+          poster={HERO_POSTER}
           autoPlay
           muted
           loop
@@ -731,390 +663,6 @@ function Problem() {
   );
 }
 
-/* ---------------------------------------------------------------- market */
-
-function Market() {
-  return (
-    <section id="market" className="px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <SectionLabel>Market opportunity</SectionLabel>
-          <h2 className="mt-5 max-w-[18ch] text-5xl font-medium leading-[0.92] tracking-[-0.035em] md:text-7xl">
-            A market waiting <span className="font-serif italic text-clay">for its product.</span>
-          </h2>
-          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-60">
-            Government budgets for lake restoration already exist. What's missing is a domestic,
-            autonomous product to deploy them against.
-          </p>
-        </Reveal>
-
-        <div className="mt-12 grid gap-px bg-ink-10 md:grid-cols-3">
-          {MARKET.map((m, i) => (
-            <Reveal key={m.k} delay={i * 90} className="bg-canvas p-7 md:p-9">
-              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-clay">{m.k}</span>
-              <div className="mt-4 text-3xl font-medium tracking-[-0.03em] md:text-4xl">{m.v}</div>
-              <p className="mt-3 text-[13px] leading-relaxed text-ink-50">{m.d}</p>
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-12 grid gap-10 md:grid-cols-2">
-          <Reveal>
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.24em] text-ink-40">Why now</h3>
-            <ul className="mt-5 space-y-4">
-              {WHY_NOW.map((w) => (
-                <li key={w} className="flex gap-3 border-b border-ink-10 pb-4 text-[14px] text-ink-70">
-                  <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-clay" />
-                  {w}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-          <Reveal delay={100}>
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.24em] text-ink-40">
-              Where we'll start
-            </h3>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {["BBMP", "Municipal Corporations", "Smart Cities", "Industries", "Large Campuses", "CSR-Funded Lake Restoration"].map(
-                (c) => (
-                  <span
-                    key={c}
-                    className="rounded-full bg-paper px-4 py-2 text-[13px] text-ink-70 ring-1 ring-ink/10"
-                  >
-                    {c}
-                  </span>
-                ),
-              )}
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------------------------------------------------------- technology */
-
-function Technology() {
-  return (
-    <section id="technology" className="border-y border-ink-10 bg-paper px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <SectionLabel>Technology</SectionLabel>
-          <h2 className="mt-5 max-w-[20ch] text-5xl font-medium leading-[0.92] tracking-[-0.035em] md:text-7xl">
-            SCRUB V1 — the{" "}
-            <span className="font-serif italic text-clay">Lake Cleaning Platform.</span>
-          </h2>
-        </Reveal>
-
-        <div className="mt-12 grid gap-8 lg:grid-cols-[1.15fr_1fr]">
-          <Reveal className="overflow-hidden rounded-3xl bg-ink ring-1 ring-ink/10">
-            <video className="h-[42vh] w-full object-cover md:h-[58vh]" autoPlay muted loop playsInline preload="none">
-              <source src={cadVid.url} type="video/mp4" />
-            </video>
-          </Reveal>
-
-          <Reveal delay={90}>
-            <p className="text-[14.5px] leading-relaxed text-ink-60">
-              A semi-industrial floating platform engineered for India's shallow, debris-heavy urban
-              lakes. Solar-assisted, AI-guided, and built entirely in-house. Patent published.
-              Field-validated at Kengeri Lake in coordination with BBMP.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {["Solar-assisted", "AI debris classification", "Autonomous navigation", "Field-tested · Kengeri Lake"].map((t) => (
-                <span key={t} className="rounded-full bg-canvas px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-60 ring-1 ring-ink/10">
-                  {t}
-                </span>
-              ))}
-            </div>
-            <dl className="mt-8 divide-y divide-ink-10 border-y border-ink-10">
-              {SPECS.map(([k, v]) => (
-                <div key={k} className="grid grid-cols-[8rem_1fr] gap-4 py-3.5">
-                  <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-40">{k}</dt>
-                  <dd className="text-[13.5px] text-ink-70">{v}</dd>
-                </div>
-              ))}
-            </dl>
-            <a
-              href="#contact"
-              className="mt-6 inline-flex rounded-full bg-ink px-5 py-2.5 text-[13px] font-medium text-paper transition-transform hover:translate-x-0.5"
-            >
-              Request spec sheet →
-            </a>
-          </Reveal>
-        </div>
-
-        <div className="mt-14 grid gap-px bg-ink-10 md:grid-cols-2 lg:grid-cols-3">
-          {CAPABILITIES.map(([n, title, body], i) => (
-            <Reveal key={n} delay={(i % 3) * 80} className="group bg-paper p-7 transition-colors hover:bg-canvas">
-              <span className="font-mono text-[10px] tracking-[0.2em] text-clay">{n}</span>
-              <h3 className="mt-4 text-xl font-medium tracking-[-0.02em]">{title}</h3>
-              <p className="mt-3 text-[13px] leading-relaxed text-ink-60">{body}</p>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------------------------------------------------------- competition */
-
-function Competition() {
-  return (
-    <section className="px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <SectionLabel>Competition</SectionLabel>
-          <h2 className="mt-5 max-w-[20ch] text-5xl font-medium leading-[0.92] tracking-[-0.035em] md:text-7xl">
-            Built to outperform,{" "}
-            <span className="font-serif italic text-clay">not just compete.</span>
-          </h2>
-        </Reveal>
-
-        <Reveal delay={80} className="mt-10 overflow-x-auto">
-          <table className="w-full min-w-[820px] border-collapse text-left">
-            <thead>
-              <tr className="border-b border-ink">
-                <th className="py-4 pr-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-40">
-                  Feature
-                </th>
-                {COMPARE.cols.map((c, i) => (
-                  <th
-                    key={c}
-                    className={`py-4 pr-4 text-[13px] font-medium ${i === 0 ? "text-clay" : "text-ink-50"}`}
-                  >
-                    {c}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {COMPARE.rows.map((r) => (
-                <tr key={r[0]} className="border-b border-ink-10 align-top">
-                  <td className="py-5 pr-4 text-[13px] font-medium">{r[0]}</td>
-                  {r.slice(1).map((cell, i) => (
-                    <td
-                      key={i}
-                      className={`py-5 pr-4 text-[13px] ${i === 0 ? "text-ink" : "text-ink-50"}`}
-                    >
-                      {i === 0 && <span className="mr-2 text-clay">✳</span>}
-                      {cell}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------------------------------------------------------- field */
-
-function Field() {
-  const clips = [
-    { src: trial1.url, label: "Autonomous run", place: "Kengeri Lake · Apr 2026", tag: "REEL 01" },
-    { src: trial2.url, label: "Conveyor test", place: "Workshop · Feb 2026", tag: "REEL 02" },
-    { src: trial3.url, label: "Pool validation", place: "RVCE · Jan 2026", tag: "REEL 03" },
-  ];
-  const [main, setMain] = useState(0);
-  const clip = clips[main];
-
-  return (
-    <section id="field" className="relative overflow-hidden bg-ink px-5 py-20 text-paper md:px-8 md:py-28">
-      <div className="aurora aurora-soft" />
-      <WaterField tone="dark" />
-      <div className="relative mx-auto max-w-6xl">
-        <Reveal className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <span className="sticker sticker-ink -rotate-2">Field trials</span>
-            <h2 className="mt-5 max-w-[16ch] text-5xl font-medium leading-[0.92] tracking-[-0.035em] md:text-7xl">
-              SCRUB <span className="font-serif italic text-clay">in the water.</span>
-            </h2>
-          </div>
-          <p className="max-w-xs text-[13.5px] leading-relaxed text-paper/55">
-            Raw footage. No renders, no mockups — real hardware, real debris, real failures.
-          </p>
-        </Reveal>
-
-        {/* projector deck */}
-        <Reveal className="mt-12">
-          <div className="relative rounded-[28px] border border-paper/15 bg-[#04100F] p-3 md:p-4">
-            {/* corner brackets */}
-            <span className="pointer-events-none absolute left-5 top-5 h-5 w-5 border-l border-t border-clay/70" />
-            <span className="pointer-events-none absolute right-5 top-5 h-5 w-5 border-r border-t border-clay/70" />
-            <span className="pointer-events-none absolute bottom-5 left-5 h-5 w-5 border-b border-l border-clay/70" />
-            <span className="pointer-events-none absolute bottom-5 right-5 h-5 w-5 border-b border-r border-clay/70" />
-
-            <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black">
-              <video
-                key={clip.src}
-                className="absolute inset-0 h-full w-full scale-110 object-cover opacity-25 blur-2xl"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="none"
-                aria-hidden="true"
-              >
-                <source src={clip.src} type="video/mp4" />
-              </video>
-              <video
-                key={`main-${clip.src}`}
-                className="relative h-full w-full object-contain"
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls
-                preload="none"
-              >
-                <source src={clip.src} type="video/mp4" />
-              </video>
-            </div>
-
-            <div className="mt-3 flex flex-wrap items-center justify-between gap-3 px-2 pb-1 font-mono text-[10px] uppercase tracking-[0.22em] text-paper/55">
-              <span className="text-clay">● rec · {clip.tag}</span>
-              <span>{clip.label}</span>
-              <span>{clip.place}</span>
-            </div>
-          </div>
-        </Reveal>
-
-        {/* filmstrip */}
-        <Reveal className="mt-6" delay={80}>
-          <div className="flex gap-4 overflow-x-auto pb-2">
-            {clips.map((c, i) => (
-              <button
-                key={c.src}
-                onClick={() => setMain(i)}
-                aria-label={c.label}
-                className={`group relative w-[220px] shrink-0 overflow-hidden rounded-xl border text-left transition-all md:w-[260px] ${
-                  i === main
-                    ? "border-clay ring-2 ring-clay/40"
-                    : "border-paper/15 opacity-60 hover:opacity-100"
-                }`}
-              >
-                <div className="aspect-video w-full bg-black">
-                  <video className="h-full w-full object-cover" muted loop playsInline preload="metadata">
-                    <source src={c.src} type="video/mp4" />
-                  </video>
-                </div>
-                <div className="flex items-center justify-between border-t border-paper/10 px-3 py-2 font-mono text-[9.5px] uppercase tracking-[0.18em] text-paper/70">
-                  <span>{c.tag}</span>
-                  <span>{c.label}</span>
-                </div>
-              </button>
-            ))}
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------------------------------------------------------- telemetry */
-
-type Metric = {
-  key: string;
-  label: string;
-  unit: string;
-  base: number;
-  jitter: number;
-  decimals: number;
-  status: string;
-  tone: "bad" | "warn" | "good";
-  safe: string;
-};
-
-const METRICS: Metric[] = [
-  { key: "ph", label: "pH Level", unit: "pH", base: 8.4, jitter: 0.12, decimals: 2, status: "Borderline", tone: "warn", safe: "safe 6.5–8.5" },
-  { key: "do", label: "Dissolved Oxygen", unit: "mg/L", base: 3.2, jitter: 0.2, decimals: 2, status: "Critical", tone: "bad", safe: "safe > 5 mg/L" },
-  { key: "turb", label: "Turbidity", unit: "NTU", base: 18.6, jitter: 1.1, decimals: 1, status: "Elevated", tone: "warn", safe: "safe < 10 NTU" },
-  { key: "tds", label: "TDS", unit: "ppm", base: 842, jitter: 14, decimals: 0, status: "High", tone: "bad", safe: "safe < 500 ppm" },
-  { key: "temp", label: "Temperature", unit: "°C", base: 28.1, jitter: 0.25, decimals: 1, status: "Normal", tone: "good", safe: "safe 20–32 °C" },
-];
-
-function Telemetry() {
-  const [series, setSeries] = useState<Record<string, number[]>>(() =>
-    Object.fromEntries(METRICS.map((m) => [m.key, Array.from({ length: 22 }, () => m.base)])),
-  );
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setSeries((prev) => {
-        const next: Record<string, number[]> = {};
-        for (const m of METRICS) {
-          const arr = prev[m.key].slice(1);
-          arr.push(m.base + (Math.random() - 0.5) * m.jitter * 2);
-          next[m.key] = arr;
-        }
-        return next;
-      });
-    }, 2600);
-    return () => clearInterval(id);
-  }, []);
-
-  const toneClass = (t: Metric["tone"]) =>
-    t === "bad" ? "text-clay" : t === "warn" ? "text-ink" : "text-live";
-
-  return (
-    <section id="telemetry" className="border-b border-ink-10 bg-paper px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <SectionLabel>Live sensor feed</SectionLabel>
-          <div className="mt-5 flex flex-wrap items-end justify-between gap-5">
-            <h2 className="max-w-[18ch] text-4xl font-medium leading-[0.95] tracking-[-0.035em] md:text-6xl">
-              Kengeri Lake — <span className="font-serif italic text-clay">water quality monitor.</span>
-            </h2>
-            <span className="inline-flex items-center gap-2 rounded-full bg-canvas px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-50 ring-1 ring-ink/10">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-live" />
-              Simulated live · SCRUB Unit 001
-            </span>
-          </div>
-        </Reveal>
-
-        <div className="mt-10 grid gap-px bg-ink-10 md:grid-cols-3 lg:grid-cols-5">
-          {METRICS.map((m, i) => {
-            const arr = series[m.key];
-            const val = arr[arr.length - 1];
-            const min = Math.min(...arr);
-            const max = Math.max(...arr);
-            const pts = arr
-              .map((v, idx) => `${(idx / (arr.length - 1)) * 100},${32 - ((v - min) / (max - min || 1)) * 28 - 2}`)
-              .join(" ");
-            return (
-              <Reveal key={m.key} delay={i * 70} className="bg-paper p-6">
-                <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-40">
-                  {m.label}
-                </div>
-                <div className={`mt-3 text-4xl font-medium tracking-[-0.03em] tabular-nums ${toneClass(m.tone)}`}>
-                  {val.toFixed(m.decimals)}
-                </div>
-                <div className="mt-1 text-[11px] text-ink-40">
-                  {m.unit} · {m.safe}
-                </div>
-                <svg viewBox="0 0 100 32" preserveAspectRatio="none" className="mt-4 h-8 w-full">
-                  <polyline points={pts} fill="none" stroke="currentColor" strokeWidth="1.2" className={toneClass(m.tone)} opacity="0.5" />
-                </svg>
-                <span className="mt-2 inline-block font-mono text-[9.5px] uppercase tracking-[0.18em] text-ink-50">
-                  {m.status}
-                </span>
-              </Reveal>
-            );
-          })}
-        </div>
-        <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-40">
-          Updates every 4 seconds · GPS-tagged · 4G LTE · Data simulated for demonstration
-        </p>
-      </div>
-    </section>
-  );
-}
-
 /* ---------------------------------------------------------------- timeline */
 
 function Timeline() {
@@ -1159,61 +707,6 @@ function Timeline() {
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------------------------------------------------------- traction */
-
-function Traction() {
-  return (
-    <section id="traction" className="border-y border-ink-10 bg-paper px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <SectionLabel>Track record</SectionLabel>
-          <h2 className="mt-5 max-w-[18ch] text-5xl font-medium leading-[0.92] tracking-[-0.035em] md:text-7xl">
-            Traction & <span className="font-serif italic text-clay">credibility.</span>
-          </h2>
-          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-60">
-            Not a concept on paper — a patented system, coordinated with government, tested on real
-            water.
-          </p>
-        </Reveal>
-
-        <div className="mt-12 grid gap-px bg-ink-10 md:grid-cols-3">
-          {TRACTION.map(([n, t, b], i) => (
-            <Reveal key={n} delay={i * 90} className="bg-paper p-7 md:p-9">
-              <span className="font-mono text-[10px] tracking-[0.2em] text-clay">{n}</span>
-              <h3 className="mt-4 text-xl font-medium tracking-[-0.02em]">{t}</h3>
-              <p className="mt-3 text-[13px] leading-relaxed text-ink-60">{b}</p>
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-10 grid gap-px bg-ink-10 md:grid-cols-3">
-          {[
-            ["20+ hrs", "Cumulative pool & lake field testing"],
-            ["TRL 4", "Core systems validated in real conditions"],
-            ["In build", "Commercial prototype · Field Trial 2 underway"],
-          ].map(([v, l], i) => (
-            <Reveal key={l} delay={i * 80} className="bg-canvas p-7">
-              <div className="text-3xl font-medium tracking-[-0.03em]">{v}</div>
-              <p className="mt-2 text-[12.5px] text-ink-50">{l}</p>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal delay={120}>
-          <blockquote className="mt-14 max-w-4xl border-l-2 border-clay pl-6 text-2xl font-medium leading-[1.25] tracking-[-0.025em] md:text-4xl">
-            “The only student-built, patent-published autonomous lake-cleaning robot in India — and
-            the only one designed specifically for{" "}
-            <span className="font-serif italic text-clay">Indian lake conditions.</span>”
-            <footer className="mt-5 font-mono text-[10px] font-normal uppercase tracking-[0.2em] text-ink-40">
-              Dr. Shanta Rangaswamy · HoD Computer Science · RVCE
-            </footer>
-          </blockquote>
-        </Reveal>
       </div>
     </section>
   );
@@ -1345,44 +838,6 @@ function Team() {
   );
 }
 
-/* ---------------------------------------------------------------- models */
-
-function Models() {
-  return (
-    <section className="bg-ink px-5 py-20 text-paper md:px-8 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-clay">
-            <span className="h-px w-8 bg-clay" />
-            How we work
-          </div>
-          <h2 className="mt-5 max-w-[20ch] text-5xl font-medium leading-[0.92] tracking-[-0.035em] md:text-7xl">
-            Flexible engagement models for every{" "}
-            <span className="font-serif italic text-clay">partner.</span>
-          </h2>
-        </Reveal>
-
-        <div className="mt-12 grid gap-px bg-paper/15 md:grid-cols-2 lg:grid-cols-3">
-          {MODELS.map(([k, t, meta, body], i) => (
-            <Reveal key={k} delay={(i % 3) * 80} className="bg-ink p-7 transition-colors hover:bg-[#0d2f2b]">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-clay">{k}</span>
-              <h3 className="mt-4 text-xl font-medium tracking-[-0.02em]">{t}</h3>
-              <p className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.16em] text-paper/40">
-                {meta}
-              </p>
-              <p className="mt-4 text-[13px] leading-relaxed text-paper/60">{body}</p>
-            </Reveal>
-          ))}
-        </div>
-        <p className="mt-8 max-w-2xl text-[13px] text-paper/50">
-          Pricing is tailored to water body size, deployment frequency and configuration. Contact us
-          to discuss the right model for your organisation.
-        </p>
-      </div>
-    </section>
-  );
-}
-
 /* ---------------------------------------------------------------- contact */
 
 function Contact() {
@@ -1417,7 +872,7 @@ function Contact() {
               {[
                 ["Email", "team.scrub0415@gmail.com", "mailto:team.scrub0415@gmail.com"],
                 ["Phone", "+91 95698 86982", "tel:+919569886982"],
-                ["Follow", "Instagram", "https://instagram.com"],
+                ["Follow", "@team_.scrub", "https://instagram.com/team_.scrub"],
               ].map(([l, v, href]) => (
                 <div key={l}>
                   <div className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-paper/40">
@@ -1487,57 +942,12 @@ function Footer() {
           <Link to="/blog" className="hover:text-paper">
             Blog
           </Link>
+          <a href="https://instagram.com/team_.scrub" className="hover:text-paper">
+            @team_.scrub
+          </a>
         </div>
       </div>
     </footer>
-  );
-}
-
-/* ---------------------------------------------------------------- compare */
-
-function Compare() {
-  return (
-    <section className="relative overflow-hidden bg-surface py-24 md:py-32">
-      <div className="aurora aurora-soft" />
-      <div className="relative mx-auto max-w-7xl px-5 md:px-8">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-16">
-          <div>
-            <SectionLabel>Drag it</SectionLabel>
-            <h2 className="mt-6 text-4xl font-medium leading-[0.95] tracking-[-0.04em] md:text-5xl">
-              One lake.
-              <br />
-              <span className="font-serif italic text-gradient">Two futures.</span>
-            </h2>
-            <p className="mt-6 max-w-sm text-[15px] leading-relaxed text-ink-60">
-              Left is a field sketch of Kengeri after a monsoon week — drawn on site, hyacinth,
-              packets, foam and all. Right is the same water after a SCRUB sweep cycle.
-            </p>
-
-            {/* taped field-journal polaroid — real hardware on the same bank */}
-            <div className="relative mt-10 max-w-[15rem] -rotate-2 bg-paper p-3 pb-4 shadow-[6px_8px_0_0_var(--ink-10)] ring-1 ring-ink/10">
-              <span className="absolute -top-3 left-1/3 h-6 w-16 rotate-[-6deg] bg-ink/10 backdrop-blur-sm" />
-              <img
-                src={v1Img.url}
-                alt="SCRUB V1 prototype deployed on the lake bank"
-                loading="lazy"
-                className="aspect-[4/3] w-full object-cover"
-              />
-              <p className="mt-2 px-1 font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-ink-50">
-                Same bank, six hours later
-              </p>
-            </div>
-          </div>
-          <Reveal>
-            <LakeCompare
-              before={lakeSketch.url}
-              after={v2Img.url}
-              beforeLabel="Untreated"
-              afterLabel="After SCRUB"
-            />
-          </Reveal>
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -1572,7 +982,13 @@ function Home() {
 
 function ModeSwitcherRoot() {
   const { mode } = useMode();
-  if (mode === "brainrot") return <BrainrotSite />;
+  if (mode === "brainrot") {
+    return (
+      <Suspense fallback={<div className="min-h-screen bg-paper" aria-label="Loading Brainrot mode" />}>
+        <BrainrotSite />
+      </Suspense>
+    );
+  }
   return (
     <div className="min-h-screen bg-canvas">
       <ScrollProgress />
@@ -1581,27 +997,17 @@ function ModeSwitcherRoot() {
       <Nav />
       <Hero />
       <Ticker />
-      <LiveDose />
       <StatBand />
+      <Problem />
       <Products />
       <MemeBreak />
-      <Compare />
-      <Problem />
       <DepthDive />
-      <Market />
-      <Technology />
       <StickerWall />
-      <Competition />
-      <Field />
       <VibeCheck />
-      <Telemetry />
       <ImpactCalc />
       <Timeline />
-      <Traction />
       <Team />
-      <Models />
       <Contact />
-
       <Footer />
     </div>
   );

@@ -16,10 +16,6 @@ export function ModeProvider({ children }: { children: ReactNode }) {
   const [mode, setMode] = useState<Mode>("pro");
 
   useEffect(() => {
-    if (localStorage.getItem("scrub-mode") === "brainrot") setMode("brainrot");
-  }, []);
-
-  useEffect(() => {
     localStorage.setItem("scrub-mode", mode);
     document.documentElement.classList.toggle("meme-on", mode === "brainrot");
   }, [mode]);

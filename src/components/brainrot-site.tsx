@@ -31,7 +31,6 @@ import dishita from "@/assets/team/dishita.jpg.asset.json";
 import farhan from "@/assets/team/farhan.jpg.asset.json";
 import varsha from "@/assets/team/varsha.jpg.asset.json";
 import lakshay from "@/assets/team/lakshay.jpg.asset.json";
-import ashutosh from "@/assets/team/ashutosh.jpg.asset.json";
 import skanda from "@/assets/team/skanda.jpg.asset.json";
 import siddiq from "@/assets/team/siddiq.jpg.asset.json";
 
@@ -95,9 +94,11 @@ const SQUAD = [
   { name: "Atharva", role: "IoT wizard", img: atharva.url },
   { name: "Dishita", role: "AI/ML gremlin", img: dishita.url },
   { name: "Farhan", role: "sensor whisperer", img: farhan.url },
+  { name: "Suraj", role: "algorithm arc", img: "/assets/images/team/Suraj.jpeg" },
   { name: "Varsha", role: "embedded chaos", img: varsha.url },
   { name: "Lakshay", role: "IoT plumbing", img: lakshay.url },
-  { name: "Ashutosh", role: "sensor stack", img: ashutosh.url },
+  { name: "Hariharan", role: "mech brain", img: "/assets/images/team/Hariharan.jpeg" },
+  { name: "Shivansh", role: "SCRUB crew", img: "/assets/images/team/Shivansh.jpeg" },
   { name: "Skanda", role: "CAD monster", img: skanda.url },
   { name: "Siddiq", role: "mech design", img: siddiq.url },
 ];
