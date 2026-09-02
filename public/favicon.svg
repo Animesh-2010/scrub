@@ -1,42 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="S logo">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#06241f"/>
-      <stop offset="100%" stop-color="#021813"/>
-    </linearGradient>
-    <linearGradient id="lime" x1="0" y1="0" x2="0.9" y2="1">
-      <stop offset="0%" stop-color="#dfff00"/>
-      <stop offset="100%" stop-color="#baff00"/>
-    </linearGradient>
-    <linearGradient id="dot" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#49b8b8"/>
-      <stop offset="100%" stop-color="#209fa8"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="512" height="512" rx="92" fill="url(#bg)"/>
-
-  <!-- Stylized S -->
-  <path
-    d="M335 153
-       C292 118 206 111 162 140
-       C117 170 113 234 145 267
-       C171 294 213 301 260 314
-       C286 321 298 330 296 348
-       C294 368 268 378 239 378
-       C207 378 183 365 164 342
-       L136 369
-       C162 405 198 424 242 426
-       C306 429 353 399 359 347
-       C365 295 333 264 278 249
-       L216 232
-       C193 226 184 214 187 196
-       C191 174 214 164 244 164
-       C275 164 299 174 321 193
-       L350 157
-       C345 155 340 154 335 153 Z"
-    fill="url(#lime)"
-  />
-
-  <circle cx="361" cy="372" r="29" fill="url(#dot)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SCRUB Robotics Logo">
+  <rect width="512" height="512" rx="92" fill="#06241f"/>
+  <path d="M335 153 C292 118 206 111 162 140 C117 170 113 234 145 267 C171 294 213 301 260 314 C286 321 298 330 296 348 C294 368 268 378 239 378 C207 378 183 365 164 342 L136 369 C162 405 198 424 242 426 C306 429 353 399 359 347 C365 295 333 264 278 249 L216 232 C193 226 184 214 187 196 C191 174 214 164 244 164 C275 164 299 174 321 193 L350 157 C345 155 340 154 335 153 Z" fill="#dfff00"/>
+  <circle cx="361" cy="372" r="29" fill="#209fa8"/>
 </svg>
