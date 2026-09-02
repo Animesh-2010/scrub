@@ -64,6 +64,8 @@ export const Route = createFileRoute("/")({
           "@type": "Organization",
           name: "SCRUB Robotics",
           url: "https://www.scrubrobotics.in",
+          logo: "https://www.scrubrobotics.in/favicon-512x512.png",
+          image: "https://www.scrubrobotics.in/favicon-512x512.png",
           email: "team.scrub0415@gmail.com",
           telephone: "+91-9569886982",
           address: {
