@@ -289,13 +289,7 @@ function Nav() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 md:px-8">
           <a href="#top" className="flex items-center gap-2.5">
-            <span
-              className={`grid h-8 w-8 place-items-center rounded-full text-[15px] font-bold italic ${
-                solid ? "bg-ink text-paper" : "bg-paper text-ink"
-              }`}
-            >
-              S
-            </span>
+            <img src="/favicon.svg" alt="SCRUB Logo" className="h-8 w-8 rounded-lg" />
             <span className="text-[17px] font-medium tracking-tight">Scrub</span>
           </a>
 

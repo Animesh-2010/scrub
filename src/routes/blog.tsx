@@ -218,11 +218,7 @@ function ZineNav() {
     <header className="sticky top-0 z-50 bg-canvas/85 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 py-4 md:px-8">
         <Link to="/" className="flex items-center gap-3">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-ink text-paper">
-            <svg viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor">
-              <path d="M3 12c3-4 6-4 9 0s6 4 5-2c-1 6-4 6-9 2s-8-4-5 0z" />
-            </svg>
-          </span>
+          <img src="/favicon.svg" alt="SCRUB Logo" className="h-9 w-9 rounded-lg" />
           <div className="flex flex-col leading-none">
             <span className="text-lg font-medium tracking-tight">Scrub</span>
             <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-ink-40">
