@@ -1,0 +1,11 @@
+# SCRUB revamp
+- [x] Refine homepage wording, refresh its scoped palette, and shorten repeated sections and oversized layouts.
+- [x] Remove the hero pause control and add accurate V3/V4 pitch-deck images.
+- [x] Verify the shorter homepage, product images and visitor contact paths.
+- [x] Add tailored visitor briefings, an interactive build archive and clear answers without changing the approved style.
+- [x] Verify new interactions, media and layout at desktop and narrow widths.
+- [x] Restore the playful palette, characters, typography and Gen Z copy without losing trial evidence or working contact forms.
+- [x] Build professional, witty, proof-first homepage with Madiwala and Kengeri media.
+- [x] Update product and achievement information from supplied deck; remove team, mentors and patent numbers.
+- [x] Implement working collaboration and meeting requests.
+- [x] Verify media, navigation, forms and small-screen layout.
