@@ -5,8 +5,8 @@ import type { Interest } from "@/components/partnership-dialog";
 import cad from "@/assets/media/cad.webm.asset.json";
 import workshop from "@/assets/media/trial2.webm.asset.json";
 import pool from "@/assets/media/trial3.webm.asset.json";
-import madiwala from "@/assets/field/madiwala-trial-01.webm.asset.json";
-import photo from "@/assets/field/20260908_162005.jpg.asset.json";
+import madiwala from "@/assets/field/20260908_162319.mp4";
+import photo from "@/assets/field/20260908_162005.jpg";
 import robot from "@/assets/media/v1.jpg.asset.json";
 import deck from "@/assets/field/pitch-deck.pdf.asset.json";
 import brochure from "@/assets/field/brochure.pdf.asset.json";
@@ -36,7 +36,7 @@ const stages = [
   { label: "Design", title: "first, make it make sense.", note: "CAD / DEVELOPMENT ARCHIVE", text: "Before there’s a wake, there’s a design. Explore the platform model behind the hardware. A development view, not a promise of final specifications.", src: cad.url, poster: robot.url },
   { label: "Build", title: "the conveyor gets its audition.", note: "MECHANISM / CONTROLLED TEST", text: "Collection depends on the mechanism actually moving. Workshop tests let us inspect the conveyor before taking it into open water.", src: workshop.url, poster: robot.url },
   { label: "Validate", title: "a pool before the plot twist.", note: "POOL / PROTOTYPE VALIDATION", text: "Controlled water testing is one step towards understanding how the platform behaves. Real lakes bring conditions a pool can’t reproduce.", src: pool.url, poster: robot.url },
-  { label: "Get wet", title: "the lake has entered the chat.", note: "MADIWALA / SEPTEMBER 2026", text: "Out of the controlled environment and into Madiwala. Real on-water trial footage, with the learning still very much in progress.", src: madiwala.url, poster: photo.url },
+  { label: "Get wet", title: "the lake has entered the chat.", note: "MADIWALA / SEPTEMBER 2026", text: "Out of the controlled environment and into Madiwala. Real on-water trial footage, with the learning still very much in progress.", src: madiwala, poster: photo },
 ];
 
 export function BuildArchive() {

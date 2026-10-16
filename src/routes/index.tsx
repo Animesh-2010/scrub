@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { PartnershipDialog, type Interest } from "@/components/partnership-dialog";
 import { StraightAnswers } from "@/components/home-discoveries";
-import madiwalaPhoto from "@/assets/field/20260908_162005.jpg.asset.json";
-import madiwalaPhoto2 from "@/assets/field/20260908_162240.jpg.asset.json";
-import madiwalaVideo from "@/assets/field/madiwala-trial-01.webm.asset.json";
+import madiwalaPhoto from "@/assets/field/20260908_162005.jpg";
+import madiwalaPhoto2 from "@/assets/field/20260908_162240.jpg";
+import madiwalaVideo from "@/assets/field/20260908_162319.mp4";
 import madiwalaVideo2 from "@/assets/field/madiwala-trial-02.webm.asset.json";
 import observatory from "@/assets/field/observatory.jpg.asset.json";
-import madiwalaMap from "@/assets/field/madiwala-map.jpg.asset.json";
+import madiwalaMap from "@/assets/field/image-2.png";
 import brochure from "@/assets/field/brochure.pdf.asset.json";
 import deck from "@/assets/field/pitch-deck.pdf.asset.json";
 import kengeri from "@/assets/media/trial1.mp4.asset.json";
@@ -18,8 +18,8 @@ import workshop from "@/assets/media/trial2.webm.asset.json";
 import pool from "@/assets/media/trial3.webm.asset.json";
 import v1 from "@/assets/media/v1.jpg.asset.json";
 import v2 from "@/assets/media/v2.jpg.asset.json";
-import v3 from "@/assets/field/v3-deck.jpg.asset.json";
-import v4 from "@/assets/field/v4-deck.jpg.asset.json";
+import v3 from "@/assets/field/scrub-v3-pitch-deck.jpg";
+import v4 from "@/assets/field/scrub-v4-pitch-deck.jpg";
 import nerdCharacter from "@/assets/memes/meme_shock.jpg";
 
 export const Route = createFileRoute("/")({
@@ -35,12 +35,12 @@ export const Route = createFileRoute("/")({
 
 const nav = [["In the field", "#field"], ["Our robots", "#products"], ["Water intelligence", "#technology"], ["Work with us", "#services"]];
 const footage = [
-  { src: madiwalaVideo.url, image: madiwalaPhoto.url, title: "Madiwala. In motion.", location: "Madiwala Lake, Bengaluru", note: "September 2026 · On-water trial", type: "video" },
-  { src: madiwalaVideo2.url, image: madiwalaPhoto2.url, title: "Another run. More learning.", location: "Madiwala Lake, Bengaluru", note: "September 2026 · Trial footage", type: "video" },
+  { src: madiwalaVideo, image: madiwalaPhoto, title: "Madiwala. In motion.", location: "Madiwala Lake, Bengaluru", note: "September 2026 · On-water trial", type: "video" },
+  { src: madiwalaVideo2.url, image: madiwalaPhoto2, title: "Another run. More learning.", location: "Madiwala Lake, Bengaluru", note: "September 2026 · Trial footage", type: "video" },
   { src: kengeri.url, image: v1.url, title: "Where the lake work began.", location: "Kengeri Lake, Bengaluru", note: "Field validation · BBMP coordination", type: "video" },
   { src: workshop.url, image: v1.url, title: "The mechanism behind the mission.", location: "Controlled testing", note: "Conveyor test · Development archive", type: "video" },
   { src: pool.url, image: v1.url, title: "Before the open water.", location: "Pool validation", note: "Prototype testing · Development archive", type: "video" },
-  { src: madiwalaPhoto2.url, image: madiwalaPhoto2.url, title: "No render. Just a robot.", location: "Madiwala Lake, Bengaluru", note: "September 2026 · Field photograph", type: "image" },
+  { src: madiwalaPhoto2, image: madiwalaPhoto2, title: "No render. Just a robot.", location: "Madiwala Lake, Bengaluru", note: "September 2026 · Field photograph", type: "image" },
 ];
 type Footage = (typeof footage)[number];
 function Eyebrow({ children }: { children: React.ReactNode }) { return <p className="scrub-eyebrow">{children}</p>; }
@@ -63,8 +63,8 @@ function Home() {
 
     <main>
       <section id="top" className="scrub-hero">
-        <img src={madiwalaPhoto.url} alt="SCRUB prototype creating ripples during a real trial at Madiwala Lake" className="scrub-hero-photo" />
-        <video className="scrub-hero-film" src={madiwalaVideo.url} poster={madiwalaPhoto.url} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} disablePictureInPicture />
+        <img src={madiwalaPhoto} alt="SCRUB prototype creating ripples during a real trial at Madiwala Lake" className="scrub-hero-photo" />
+        <video className="scrub-hero-film" src={madiwalaVideo} poster={madiwalaPhoto} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} disablePictureInPicture />
         <div className="scrub-hero-shade" />
         <div className="scrub-wrap scrub-hero-content">
           <div className="scrub-field-label"><span className="size-2 rounded-full bg-live" /> FROM THE LAB TO THE LAKE</div>
@@ -102,8 +102,8 @@ function Home() {
           <div className="scrub-products">
             <article className="scrub-product"><img src={v1.url} alt="SCRUB V1 lake-cleaning prototype" loading="lazy" /><div><div className="flex items-center justify-between gap-3"><span className="scrub-product-id">V1</span><span className="scrub-status">FIELD-TESTED</span></div><h3>The surface cleaner.</h3><p>A twin-hull platform with conveyor collection for floating waste and aquatic vegetation. Tested in real lake conditions.</p><ul><li>Conveyor collection</li><li>Dual-mode control</li><li>Solar-assisted platform</li></ul><Button variant="link" className="px-0" onClick={() => setInterest("Robot purchase")}>Discuss V1 <ArrowUpRight /></Button></div></article>
             <article className="scrub-product"><img src={v2.url} alt="SCRUB V2 passive-intake prototype" loading="lazy" /><div><div className="flex items-center justify-between gap-3"><span className="scrub-product-id">V2</span><span className="scrub-status">PROTOTYPE</span></div><h3>The passive collector.</h3><p>Forward motion guides waste into a passive intake. Fewer moving collection parts, with a compact, transportable design.</p><ul><li>Passive waste intake</li><li>Compact architecture</li><li>Transportable design</li></ul><Button variant="link" className="px-0" onClick={() => setInterest("Robot purchase")}>Discuss V2 <ArrowUpRight /></Button></div></article>
-            <article className="scrub-product"><img src={v3.url} alt="SCRUB V3 river interceptor concept illustration from the pitch deck" loading="lazy" /><div><div className="flex items-center justify-between gap-3"><span className="scrub-product-id">V3</span><span className="scrub-status planned">IN DEVELOPMENT</span></div><h3>The river interceptor.</h3><p>A floating-boom concept that guides river and canal debris towards shore-based collection. In development — the next step is validation.</p><ul><li>River & canal applications</li><li>Shore-based collection</li><li>Modular interception</li></ul><Button variant="link" className="px-0" onClick={() => setInterest("Collaboration")}>Explore a pilot <ArrowUpRight /></Button></div></article>
-            <article className="scrub-product"><img src={v4.url} alt="SCRUB V4 configurable water-analytics bot illustration from the pitch deck" loading="lazy" /><div><div className="flex items-center justify-between gap-3"><span className="scrub-product-id">V4</span><span className="scrub-status">FIELD-TESTED ANALYTICS</span></div><h3>The water analyst.</h3><p>A dedicated water-analytics platform, bringing configurable sensing together with spatial mapping and the SCRUB Observatory software.</p><ul><li>Configurable sensing</li><li>Spatial water-quality data</li><li>Monitoring & analysis</li></ul><Button variant="link" className="px-0" onClick={() => setInterest("Water analytics")}>Explore water intelligence <ArrowUpRight /></Button></div></article>
+            <article className="scrub-product"><img src={v3} alt="SCRUB V3 river interceptor concept illustration from the pitch deck" loading="lazy" /><div><div className="flex items-center justify-between gap-3"><span className="scrub-product-id">V3</span><span className="scrub-status planned">IN DEVELOPMENT</span></div><h3>The river interceptor.</h3><p>A floating-boom concept that guides river and canal debris towards shore-based collection. In development — the next step is validation.</p><ul><li>River & canal applications</li><li>Shore-based collection</li><li>Modular interception</li></ul><Button variant="link" className="px-0" onClick={() => setInterest("Collaboration")}>Explore a pilot <ArrowUpRight /></Button></div></article>
+            <article className="scrub-product"><img src={v4} alt="SCRUB V4 configurable water-analytics bot illustration from the pitch deck" loading="lazy" /><div><div className="flex items-center justify-between gap-3"><span className="scrub-product-id">V4</span><span className="scrub-status">FIELD-TESTED ANALYTICS</span></div><h3>The water analyst.</h3><p>A dedicated water-analytics platform, bringing configurable sensing together with spatial mapping and the SCRUB Observatory software.</p><ul><li>Configurable sensing</li><li>Spatial water-quality data</li><li>Monitoring & analysis</li></ul><Button variant="link" className="px-0" onClick={() => setInterest("Water analytics")}>Explore water intelligence <ArrowUpRight /></Button></div></article>
           </div>
         </div>
       </section>
@@ -112,7 +112,7 @@ function Home() {
         <div className="scrub-wrap"><div className="scrub-section-head"><div><Eyebrow>04 / FROM DATA TO ACTION</Eyebrow><h2>looks clean?<br /><span className="text-live"><em>let’s measure.</em></span></h2></div><p>SCRUB Observatory combines location, sensing and spatial analysis. Blue water makes a good photograph. It isn’t a water-quality report.</p></div>
           <div className="scrub-data-character"><img src={nerdCharacter} alt="Surprised doodle character reacting to water data" loading="lazy" /><span className="sticker sticker-live">the water has receipts 🤓</span></div>
 
-          <div className="scrub-analytics-detail"><div><Eyebrow>MADIWALA / FIELD DATA</Eyebrow><h3>Not one sample.<br />A spatial story.</h3><p>The Madiwala trial map connects measurements to the robot’s trajectory. Measured points and predicted areas are identified separately — because predictions aren’t measurements.</p><div className="mt-6 flex flex-wrap gap-2">{["pH", "TDS", "Turbidity", "GPS-tagged readings", "ML-based spatial analysis"].map((s) => <span className="scrub-sensor" key={s}>{s}</span>)}</div><figure className="scrub-software-preview"><img className="scrub-observatory" src={observatory.url} alt="SCRUB Observatory software showing Kengeri Lake mission planning and water-quality information" loading="lazy" /><figcaption className="mt-3 text-xs text-paper/60">SCRUB Observatory · Product screenshot from our pitch deck, not a live feed.</figcaption></figure><Button className="scrub-cta mt-7" onClick={() => setInterest("Water analytics")}>See what your water is saying <ArrowUpRight /></Button></div><figure><img src={madiwalaMap.url} alt="Madiwala Lake measured robot trajectory and predicted outer loop with water-quality values" loading="lazy" className="w-full rounded-md" /><figcaption className="mt-3 text-xs text-paper/60">Trial analysis from the supplied deck · Measured inner loop / predicted outer loop.</figcaption></figure></div>
+          <div className="scrub-analytics-detail"><div><Eyebrow>MADIWALA / FIELD DATA</Eyebrow><h3>Not one sample.<br />A spatial story.</h3><p>The Madiwala trial map connects measurements to the robot’s trajectory. Measured points and predicted areas are identified separately — because predictions aren’t measurements.</p><div className="mt-6 flex flex-wrap gap-2">{["pH", "TDS", "Turbidity", "GPS-tagged readings", "ML-based spatial analysis"].map((s) => <span className="scrub-sensor" key={s}>{s}</span>)}</div><figure className="scrub-software-preview"><img className="scrub-observatory" src={observatory.url} alt="SCRUB Observatory software showing Kengeri Lake mission planning and water-quality information" loading="lazy" /><figcaption className="mt-3 text-xs text-paper/60">SCRUB Observatory · Product screenshot from our pitch deck, not a live feed.</figcaption></figure><Button className="scrub-cta mt-7" onClick={() => setInterest("Water analytics")}>See what your water is saying <ArrowUpRight /></Button></div><figure><img src={madiwalaMap} alt="Madiwala Lake measured robot trajectory and predicted outer loop with water-quality values" loading="lazy" className="w-full rounded-md" /><figcaption className="mt-3 text-xs text-paper/60">Trial analysis from the supplied deck · Measured inner loop / predicted outer loop.</figcaption></figure></div>
         </div>
       </section>
 
