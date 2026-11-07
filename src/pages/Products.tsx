@@ -1,0 +1,252 @@
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import Reveal from "../components/Reveal";
+import Callouts from "../components/Callouts";
+import BotDetails from "../components/BotDetails";
+import Loader from "../components/Loader";
+import ModelViewer from "../components/ModelViewer";
+import ViewerBoundary from "../components/ViewerBoundary";
+import { useInView } from "../components/useInView";
+import { usePageMeta } from "../components/usePageMeta";
+import { ArrowDown, ArrowLeft, Cube } from "../components/Icons";
+import { bots } from "../data/content";
+import { photo } from "../data/photo";
+import { loadShowcase } from "../routes";
+import { webglAvailable } from "../three/webgl";
+import type { BotId } from "../data/content";
+import type { Cell, ProjectedPoint } from "../three/Showcase";
+
+/** three.js is large, so it only loads when the products page is opened. */
+const Showcase = lazy(loadShowcase);
+
+const GIVE_UP_MS = 15000;
+
+/** Photo cards, for devices without WebGL. */
+function PhotoGrid() {
+  return (
+    <ul className="bot-grid">
+      {bots.map((b) => (
+        <li key={b.id}>
+          <Link to={`/products?bot=${b.id}`} className="bot-card">
+            <div className="bot-card__media">
+              <img {...photo(b.cover, "(max-width: 800px) 92vw, 560px")} alt={b.name} loading="lazy" decoding="async" style={{ objectPosition: b.focus }} />
+            </div>
+            <div className="bot-card__body">
+              <span className="bot-card__id">{b.id.toUpperCase()}</span>
+              <h2>{b.name}</h2>
+              <p className="bot-card__purpose">{b.purpose}</p>
+              <p className="bot-card__sum">{b.summary}</p>
+            </div>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export default function Products() {
+  const [params, setParams] = useSearchParams();
+  const selected = useMemo(() => bots.find((b) => b.id === params.get("bot"))?.id ?? null, [params]);
+  const bot = bots.find((b) => b.id === selected) ?? null;
+  // The 360° viewer lives in the URL (?bot=v1&view=3d) as its own history step, so the browser's Back
+  // button closes it. Kept in component state it outlived Back: the viewer vanished with the robot, but
+  // the showroom stayed paused behind it and the robots never came back.
+  const viewer = !!selected && params.get("view") === "3d";
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [settled, setSettled] = useState(false);
+  const [canGL] = useState(webglAvailable);
+  const [loaded, setLoaded] = useState(0);
+  const [gaveUp, setGaveUp] = useState(false);
+  const projRef = useRef<ProjectedPoint[]>([]);
+  const cellsRef = useRef<Cell[]>([]);
+  const hoverRef = useRef(-1);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [hover, setHover] = useState(-1);
+  const showroomRef = useRef<HTMLElement>(null);
+  // stop drawing the 3D scene (and the call-outs) while it is scrolled out of view
+  const onScreen = useInView(showroomRef, { initial: true });
+  const paused = viewer || !onScreen;
+
+  const ready = loaded >= bots.length || gaveUp;
+
+  usePageMeta(
+    bot ? `${bot.name}: ${bot.purpose}` : "Products",
+    bot ? bot.summary : "Three SCRUB robots, three jobs: explore each lake-cleaning robot in 3D, see what every part does and read its specifications.",
+  );
+
+  useEffect(() => {
+    const t = setTimeout(() => setGaveUp(true), GIVE_UP_MS);
+    return () => clearTimeout(t);
+  }, []);
+
+  // keep the 3D scene in step with the grid cards
+  useEffect(() => {
+    const stage = stageRef.current;
+    const grid = gridRef.current;
+    if (!stage || !grid) return;
+    const measure = () => {
+      const s = stage.getBoundingClientRect();
+      cellsRef.current = Array.from(grid.children).map((el) => {
+        const r = el.getBoundingClientRect();
+        return { x: r.left - s.left, y: r.top - s.top, w: r.width, h: r.height };
+      });
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(stage);
+    ro.observe(grid);
+    Array.from(grid.children).forEach((c) => ro.observe(c));
+    return () => ro.disconnect();
+  }, [canGL]);
+
+  const select = useCallback((id: BotId) => setParams({ bot: id }), [setParams]);
+  const back = useCallback(() => setParams({}), [setParams]);
+  const open = useCallback(() => {
+    if (selected) setParams({ bot: selected, view: "3d" }, { state: { viewerPushed: true } });
+  }, [selected, setParams]);
+  const closeViewer = useCallback(() => {
+    // opened from this page: step back, so a later Back does not reopen it; opened from a shared link: just drop it
+    if ((location.state as { viewerPushed?: boolean } | null)?.viewerPushed) navigate(-1);
+    else if (selected) setParams({ bot: selected }, { replace: true });
+  }, [location.state, navigate, selected, setParams]);
+  const hoverCard = useCallback((i: number) => {
+    hoverRef.current = i;
+    setHover(i);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !viewer && selected) back();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selected, viewer, back]);
+
+  // A new robot starts at the top of the showroom. Without 3D there is no showroom to look at: the details
+  // are the response to picking a card, so bring them into view (a frame later, after the layout has reset the
+  // scroll position for a page change).
+  useEffect(() => {
+    if (canGL || !selected) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+      return;
+    }
+    const raf = requestAnimationFrame(() => document.getElementById("details")?.scrollIntoView({ behavior: "smooth" }));
+    return () => cancelAnimationFrame(raf);
+  }, [selected, canGL]);
+
+  if (!canGL) {
+    return (
+      <>
+        <section className="page-hero">
+          <div className="wrap">
+            <Reveal>
+              <p className="eyebrow">Products</p>
+              <h1 className="display">Three robots, three jobs.</h1>
+              <p className="lead">Each SCRUB is built for a different kind of water.</p>
+            </Reveal>
+          </div>
+        </section>
+        <section className="section section--tight">
+          <div className="wrap"><PhotoGrid /></div>
+        </section>
+        {bot && <BotDetails bot={bot} />}
+      </>
+    );
+  }
+
+  return (
+    <>
+      <section ref={showroomRef} className={`showroom ${selected ? "is-selected" : ""}`} aria-label="SCRUB robots">
+        <Loader visible={!ready} className="loader--cover" />
+
+        <header className="showroom__head">
+          <p className="eyebrow">Products</p>
+          <h1 className="display display--md">Three robots, three jobs.</h1>
+          <p className="showroom__hint">Choose a robot to bring it to the centre and see what each part does.</p>
+        </header>
+
+        <div ref={stageRef} className="showroom__stage">
+          {/* card backgrounds sit under the 3D scene, card text and click areas above it */}
+          <div className={`pgrid pgrid--bg ${selected ? "is-off" : ""}`} aria-hidden="true">
+            {bots.map((b, i) => <div key={b.id} className={`pcard__bg ${hover === i ? "is-hover" : ""}`} />)}
+          </div>
+
+          <div className="showroom__canvas">
+            <ViewerBoundary fallback={<div className="showroom__fallback"><PhotoGrid /></div>}>
+              <Suspense fallback={null}>
+                <Showcase
+                  selected={selected}
+                  paused={paused}
+                  revealed={ready}
+                  cellsRef={cellsRef}
+                  hoverRef={hoverRef}
+                  onSelect={select}
+                  onOpen={open}
+                  onSettled={setSettled}
+                  onProgress={setLoaded}
+                  projRef={projRef}
+                />
+              </Suspense>
+            </ViewerBoundary>
+          </div>
+
+          <div ref={gridRef} className={`pgrid pgrid--fg ${selected || !ready ? "is-off" : ""}`}>
+            {bots.map((b, i) => (
+              <button
+                key={b.id}
+                className="pcard"
+                tabIndex={selected ? -1 : 0}
+                onClick={() => select(b.id)}
+                onPointerEnter={() => hoverCard(i)}
+                onPointerLeave={() => hoverCard(-1)}
+                onFocus={() => hoverCard(i)}
+                onBlur={() => hoverCard(-1)}
+              >
+                <span className="pcard__space" aria-hidden="true" />
+                <span className="pcard__text">
+                  <span className="pcard__top">
+                    <span className="pcard__id">{b.id.toUpperCase()}</span>
+                    <em className={b.status === "In development" ? "is-dev" : ""}>{b.status}</em>
+                  </span>
+                  <strong>{b.name}</strong>
+                  <span className="pcard__purpose">{b.purpose}</span>
+                  <small>Explore <ArrowDown width={14} height={14} style={{ transform: "rotate(-90deg)" }} /></small>
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {bot && (
+            <div className="sel">
+              <div className="sel__top">
+                <button className="vbtn" onClick={back}><ArrowLeft width={16} height={16} /> All robots</button>
+                <div className="sel__title">
+                  <span className="sel__id">{bot.id.toUpperCase()}</span>
+                  <h2>{bot.name}</h2>
+                  <p>{bot.purpose}</p>
+                </div>
+              </div>
+
+              <Callouts botId={bot.id} projRef={projRef} ready={settled} active={!paused} />
+
+              <div className="sel__actions">
+                <button className="btn btn--accent btn--sm" onClick={open}><Cube width={18} height={18} /> Open 3D viewer</button>
+                <Link to={`/contact?product=${bot.id}`} className="btn btn--ghost btn--sm">Send enquiry</Link>
+                <a href="#details" className="btn btn--ghost btn--sm" onClick={(e) => { e.preventDefault(); document.getElementById("details")?.scrollIntoView({ behavior: "smooth" }); }}>
+                  Scroll for details &amp; specs <ArrowDown width={16} height={16} />
+                </a>
+              </div>
+              <p className="sel__tip">Click the robot to inspect it in 360°</p>
+            </div>
+          )}
+        </div>
+
+        {viewer && bot && <ModelViewer bot={bot} onClose={closeViewer} />}
+      </section>
+
+      {bot && <BotDetails bot={bot} />}
+    </>
+  );
+}
