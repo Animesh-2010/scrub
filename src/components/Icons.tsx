@@ -51,6 +51,9 @@ export const Play = (p: SVGProps<SVGSVGElement>) => (
 export const Instagram = (p: SVGProps<SVGSVGElement>) => (
   <svg {...base} {...p}><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r=".6" fill="currentColor" /></svg>
 );
+export const LinkedIn = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...base} {...p}><path d="M6 9v9M6 6.2v.1M10 18v-5a3 3 0 0 1 6 0v5M10 12V9" /><path d="M3.5 3.5h17v17h-17z" /></svg>
+);
 export const YouTube = (p: SVGProps<SVGSVGElement>) => (
   <svg {...base} {...p}><rect x="2.5" y="5.5" width="19" height="13" rx="4" /><path d="m10 9.5 5 2.5-5 2.5v-5Z" fill="currentColor" stroke="none" /></svg>
 );

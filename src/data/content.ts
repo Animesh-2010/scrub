@@ -221,7 +221,8 @@ export const press = [
 export const outlets = ["India Today", "Electronics For You", "Asianet News Kannada", "Startup Pedia", "Startupro", "Runtime", "AIM Media House"];
 
 export const socials = [
-  { name: "Instagram", handle: "@team_.scrub", href: "https://instagram.com/team_.scrub" },
+  { name: "Instagram", handle: "@scrub_robotics", href: "https://www.instagram.com/scrub_robotics?utm_source=ig_web_button_share_sheet&exln=ZDNlZDc0MzIxNw==" },
+  { name: "LinkedIn", handle: "SCRUB Robotics", href: "https://www.linkedin.com/in/scrub-robotics-3593a0426?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
   { name: "YouTube", handle: "@scrub-robotics", href: "https://youtube.com/@scrub-robotics" },
   { name: "X", handle: "@ScrubRobotics", href: "https://x.com/ScrubRobotics" },
   { name: "Website", handle: "scrubrobotics.in", href: "https://www.scrubrobotics.in" },
