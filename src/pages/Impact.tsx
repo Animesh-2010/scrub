@@ -3,7 +3,7 @@ import Reveal from "../components/Reveal";
 import { usePageMeta } from "../components/usePageMeta";
 import CountUp from "../components/CountUp";
 import Lightbox from "../components/Lightbox";
-import { ArrowUpRight, Play } from "../components/Icons";
+import { ArrowUpRight } from "../components/Icons";
 import { socialIcon } from "../components/socialIcon";
 import { gallery, impactStats, outlets, press, socials, timeline, youtubeId } from "../data/content";
 import { photo } from "../data/photo";
@@ -111,7 +111,6 @@ export default function Impact() {
               ) : (
                 <button className="video-frame__poster" onClick={() => setPlaying(true)} aria-label="Play the SCRUB V2 testing video">
                   <img src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`} alt="" loading="lazy" onError={(e) => (e.currentTarget.style.visibility = "hidden")} />
-                  <span className="video-frame__play"><Play width={28} height={28} /></span>
                 </button>
               )}
             </div>
