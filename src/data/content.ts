@@ -259,7 +259,7 @@ export const gallery: Photo[] = [
   { src: "/media/impact/v2-trees.webp", alt: "SCRUB V2 beside a tree-lined lake shore", caption: "SCRUB V2 along the lakeshore", credit: "Cover image: India Today" },
   { src: "/media/impact/madiwala-lake.webp", alt: "SCRUB V1 seen from above on Madiwala Lake", caption: "SCRUB V1 at Madiwala Lake", credit: "SCRUB, 8 Sep 2026", focus: "50% 50%" },
   { src: "/media/impact/story-startupro.webp", alt: "Startupro story cover about SCRUB's autonomous floating robots", caption: "Featured by Startupro", credit: "Startupro" },
-  { src: "/media/impact/on-the-water.webp", alt: "SCRUB on calm water with the city skyline behind", caption: "Sweeping calm water", credit: "SCRUB video" },
+  { src: "/media/impact/on-the-water.webp", alt: "SCRUB robot sweeping calm water beside a tree-lined shore", caption: "Sweeping calm water", credit: "SCRUB" },
   { src: "/media/impact/kengeri-test.webp", alt: "A SCRUB robot on brown water by a stone wall during a test run", caption: "Test run beside a lake wall", credit: "Cover image: Electronics For You" },
   { src: "/media/impact/v2-algae.webp", alt: "SCRUB V2 testing in green, algae-rich water", caption: "SCRUB V2 testing in algae-green water", credit: "SCRUB V2 testing video" },
   { src: "/media/impact/observatory-map.webp", alt: "SCRUB Observatory map of GPS-tagged water-quality readings on Madiwala Lake", caption: "SCRUB Observatory: Madiwala water-quality map", credit: "SCRUB" },
