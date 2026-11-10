@@ -438,11 +438,8 @@
 @media (max-width: 760px) { .press { grid-template-columns: 1fr; } }
 
 .social { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(32px, 5vw, 70px); align-items: start; }
-.video-frame { margin-top: 30px; position: relative; aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; background: #000; border: 1px solid var(--line); box-shadow: var(--shadow); }
-.video-frame iframe, .video-frame__poster { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.video-frame__poster { padding: 0; background: none; border: 0; }
-.video-frame__poster img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
-.video-frame__poster:hover img { transform: scale(1.04); }
+.impact-photo { margin-top: 30px; overflow: hidden; border-radius: 24px; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--soft-2); }
+.impact-photo img { width: 100%; height: auto; }
 .socials { display: grid; gap: 12px; margin-top: 30px; }
 .social-card { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #fff; transition: border-color 0.25s, transform 0.25s; }
 .social-card:hover { border-color: var(--green); transform: translateX(4px); }

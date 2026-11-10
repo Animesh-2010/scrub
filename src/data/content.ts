@@ -266,8 +266,6 @@ export const gallery: Photo[] = [
   { src: "/media/impact/v2-lab.webp", alt: "SCRUB V2 passive-intake prototype on the workshop bench", caption: "SCRUB V2 passive-intake prototype", credit: "SCRUB" },
 ];
 
-export const youtubeId = "B9N0zEVcq4w";
-
 /* ------------------------------ CONTACT ------------------------------ */
 
 export const contact = {

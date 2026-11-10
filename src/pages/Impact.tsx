@@ -5,12 +5,11 @@ import CountUp from "../components/CountUp";
 import Lightbox from "../components/Lightbox";
 import { ArrowUpRight } from "../components/Icons";
 import { socialIcon } from "../components/socialIcon";
-import { gallery, impactStats, outlets, press, socials, timeline, youtubeId } from "../data/content";
+import { gallery, impactStats, outlets, press, socials, timeline } from "../data/content";
 import { photo } from "../data/photo";
 
 export default function Impact() {
   usePageMeta("Impact", "Where SCRUB has been seen, written about and put to work: press coverage, field photos and milestones from lake trials in Bengaluru.");
-  const [playing, setPlaying] = useState(false);
   const [zoom, setZoom] = useState<number | null>(null);
 
   return (
@@ -100,19 +99,13 @@ export default function Impact() {
           <Reveal className="social__video">
             <p className="eyebrow">Watch</p>
             <h2 id="social-title" className="display display--md">SCRUB V2, on the water.</h2>
-            <div className="video-frame">
-              {playing ? (
-                <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0`}
-                  title="SCRUB V2 testing"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              ) : (
-                <button className="video-frame__poster" onClick={() => setPlaying(true)} aria-label="Play the SCRUB V2 testing video">
-                  <img src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`} alt="" loading="lazy" onError={(e) => (e.currentTarget.style.visibility = "hidden")} />
-                </button>
-              )}
+            <div className="impact-photo">
+              <img
+                {...photo("/media/impact/sweeping-calm-water.webp", "(max-width: 900px) 92vw, 720px")}
+                alt="SCRUB robot sweeping calm water beside a tree-lined shore"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </Reveal>
 
